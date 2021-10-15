@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
@@ -29,6 +29,7 @@ import { GET_COLLECTION, GET_PRODUCT_BY_MENU, SEARCH_PRODUCTS } from './product-
     selector: 'vsf-product-list',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     })
 export class ProductListComponent implements OnInit {
     products$: Observable<SearchProducts.Items[]>;
@@ -56,16 +57,6 @@ export class ProductListComponent implements OnInit {
                 private sanitizer: DomSanitizer) { }
 
     ngOnInit() {
-        const perPage = 24;
-        const collectionSlug$ = this.route.paramMap.pipe(
-            map(pm => pm.get('slug')),
-            distinctUntilChanged(),
-            tap(slug => {
-                this.stateService.setState('lastCollectionSlug', slug || null);
-                this.currentPage = 0;
-            }),
-            shareReplay(1),
-        );
         this.idMenu = this.route.snapshot.paramMap.get('id')
         console.log('ID MENU =>', this.idMenu)
         this.activeFacetValueIds$ = this.route.paramMap.pipe(
@@ -107,6 +98,17 @@ export class ProductListComponent implements OnInit {
         this.searchTerm$ = this.route.queryParamMap.pipe(
             map(pm => pm.get('search') || ''),
             distinctUntilChanged(),
+            shareReplay(1),
+        );
+
+        const perPage = 24;
+        const collectionSlug$ = this.route.paramMap.pipe(
+            map(pm => pm.get('slug')),
+            distinctUntilChanged(),
+            tap(slug => {
+                this.stateService.setState('lastCollectionSlug', slug || null);
+                this.currentPage = 0;
+            }),
             shareReplay(1),
         );
 
