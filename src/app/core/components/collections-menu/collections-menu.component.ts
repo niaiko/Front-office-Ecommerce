@@ -110,6 +110,7 @@ export class CollectionsMenuComponent implements OnInit, OnDestroy {
         this.router.navigate(['category', index.slug, index.id])
         console.log(index)
         this.close(index)
+        window.location.reload();
     }
 
     private openOverlay() {

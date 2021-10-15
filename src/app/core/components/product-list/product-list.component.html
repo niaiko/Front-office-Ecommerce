@@ -4,7 +4,7 @@
         <vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs$ | async"></vsf-collection-breadcrumbs>
         <h1 class="display-1 collection-name">{{ (collection$ | async)?.name }}</h1>
         <h1 class="display-4 text-muted" *ngIf="searchTerm$ | async as term">
-             Results for <span class="text-dark">"{{ term }}"</span>
+             Résultat pour <span class="text-dark">"{{ term }}"</span>
         </h1>
     </div>
 
@@ -12,9 +12,9 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-2">
-            <vsf-product-list-controls [facetValues]="facetValues"
+            <!-- <vsf-product-list-controls [facetValues]="facetValues"
                                        [activeFacetValueIds]="activeFacetValueIds$ | async"
-                                       [totalResults]="unfilteredTotalItems"></vsf-product-list-controls>
+                                       [totalResults]="unfilteredTotalItems"></vsf-product-list-controls> -->
         </div>
         <div class="col-12 col-md-10">
             <ng-container *ngIf="collection$ | async as collection">

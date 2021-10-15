@@ -29,7 +29,7 @@ import { GET_COLLECTION, GET_PRODUCT_BY_MENU, SEARCH_PRODUCTS } from './product-
     selector: 'vsf-product-list',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     })
 export class ProductListComponent implements OnInit {
     products$: Observable<SearchProducts.Items[]>;
