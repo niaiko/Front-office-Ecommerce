@@ -214,7 +214,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^12.0.0 || ^13.0.0-0", "@angular/common@^12.0.1", "@angular/common@^12.1.0", "@angular/common@12.2.7":
+"@angular/common@^12.0.0 || ^13.0.0-0", "@angular/common@^12.0.1", "@angular/common@^12.1.0", "@angular/common@>=7.0.0", "@angular/common@12.2.7", "@angular/common@8.x - 11.x":
   "integrity" "sha512-Gug5a59c4NwfmSvO9Ya7DoYjl6ndK7nDuBoPSpp6IHTlNE8FY/BOd29qEp/lYJ4cAWxVk14+lonUPs6C+Szekw=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-12.2.7.tgz"
   "version" "12.2.7"
@@ -253,7 +253,7 @@
   "resolved" "https://registry.npmjs.org/@angular/compiler/-/compiler-9.0.0.tgz"
   "version" "9.0.0"
 
-"@angular/core@^10.0.0", "@angular/core@^12.0.0 || ^13.0.0-0", "@angular/core@^12.0.1", "@angular/core@^12.1.0", "@angular/core@^6.1.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0", "@angular/core@12.2.7":
+"@angular/core@^10.0.0", "@angular/core@^12.0.0 || ^13.0.0-0", "@angular/core@^12.0.1", "@angular/core@^12.1.0", "@angular/core@^6.1.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0", "@angular/core@>=7.0.0", "@angular/core@12.2.7", "@angular/core@8.x - 11.x":
   "integrity" "sha512-no4mQ4O1euNH6odho1H27dcUmYBaNuyYvpPvv0wbb1pMT3Mm2J/uueePx/fvwg3nQ+vnk/yL1VCCqR7Mt62nHA=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-12.2.7.tgz"
   "version" "12.2.7"
@@ -265,7 +265,7 @@
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-9.0.0.tgz"
   "version" "9.0.0"
 
-"@angular/forms@^12.0.1":
+"@angular/forms@^12.0.1", "@angular/forms@8.x - 11.x":
   "integrity" "sha512-TtXnwE/bouEtGddaaSGytwCoyRN8YPNN/yf81fFM9LOGef4ZpABMtuMnsZxlDS+91AGpVSzvR511O5DG1BXc4Q=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-12.2.7.tgz"
   "version" "12.2.7"
@@ -5581,6 +5581,11 @@
     "merge2" "^1.3.0"
     "slash" "^3.0.0"
 
+"google-libphonenumber@^3.2.3":
+  "integrity" "sha512-M/b5mij5o2aGnbe+Id9O3847jBtP0baW61foFkevxBxbuV4LH9AcujjYLd2UVkUPKVdMpKyBZxfeNwdxqobQFQ=="
+  "resolved" "https://registry.npmjs.org/google-libphonenumber/-/google-libphonenumber-3.2.25.tgz"
+  "version" "3.2.25"
+
 "got@^9.6.0":
   "integrity" "sha512-R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q=="
   "resolved" "https://registry.npmjs.org/got/-/got-9.6.0.tgz"
@@ -6156,6 +6161,11 @@
   "integrity" "sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA=="
   "resolved" "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
   "version" "1.4.0"
+
+"intl-tel-input@^17.0.3":
+  "integrity" "sha512-+jPgPKUcgbhSSRN0BZLJOdntTaMv8tqowLrVQ3CGCNGpMKb4B9PRyzOZQpwo1FeA+LTOzvErOlBhbCuQog7R3g=="
+  "resolved" "https://registry.npmjs.org/intl-tel-input/-/intl-tel-input-17.0.13.tgz"
+  "version" "17.0.13"
 
 "invariant@^2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
@@ -7819,6 +7829,18 @@
     "stylus" "^0.54.8"
   optionalDependencies:
     "esbuild" "^0.12.15"
+
+"ngx-bootstrap@^6.0.0":
+  "integrity" "sha512-5WKHo6/ltkenw4UyXZwED8rODCgp2RGbWurzYzZsF/gH1JO5SN7TJ+AL6kXYk6XM42sDA2WhN9Db+ZPNjiyHnA=="
+  "resolved" "https://registry.npmjs.org/ngx-bootstrap/-/ngx-bootstrap-6.2.0.tgz"
+  "version" "6.2.0"
+
+"ngx-intl-tel-input@^3.1.1":
+  "integrity" "sha512-jk/6dBBDo9Z9QNBzFvJKQs159mZtKfC+/hF3MDoMpya8xzOz7Tbwh5qNsHaIFtzDx82Fv1Ji9+0VPWIv1P0fIQ=="
+  "resolved" "https://registry.npmjs.org/ngx-intl-tel-input/-/ngx-intl-tel-input-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "tslib" "^2.0.0"
 
 "nice-try@^1.0.4":
   "integrity" "sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ=="

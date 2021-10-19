@@ -85,9 +85,9 @@ export const GET_PRODUCT_MENU = gql`
     ${ASSET_FRAGMENT}
 `;
 
-export const GET_PRODUCT_BY_MENU = gql`
-        query product($id: ID) {
-            productMenu(id: $id) {
+export const GET_PRODUCT_ENABLED_BY_MENU = gql`
+    query productEnabled($id: ID!){
+        productMenuEnable(id: $id) {
             id
             name
             slug

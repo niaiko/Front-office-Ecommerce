@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationEnd, Router, RouterModule, UrlSerializer } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { filter } from 'rxjs/operators';
@@ -22,6 +23,7 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),
+        BrowserAnimationsModule,
         BrowserTransferStateModule,
         RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled', initialNavigation: 'enabled', relativeLinkResolution: 'legacy' }),
         CoreModule,

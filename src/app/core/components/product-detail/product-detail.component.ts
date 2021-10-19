@@ -9,7 +9,7 @@ import { DataService } from '../../providers/data/data.service';
 import { NotificationService } from '../../providers/notification/notification.service';
 import { StateService } from '../../providers/state/state.service';
 
-import { ADD_TO_CART, GET_PRODUCT_DETAIL } from './product-detail.graphql';
+import { ADD_TO_CART, GET_PRODUCT_DETAIL, OPTION_BY_NAME } from './product-detail.graphql';
 
 @Component({
     selector: 'vsf-product-detail',
@@ -26,6 +26,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     @ViewChild('addedToCartTemplate', {static: true})
     private addToCartTemplate: TemplateRef<any>;
     private sub: Subscription;
+    option: any;
 
     constructor(private dataService: DataService,
                 private stateService: StateService,
@@ -52,6 +53,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             withLatestFrom(lastCollectionSlug$),
         ).subscribe(([product, lastCollectionSlug]) => {
             this.product = product;
+            const field: any = product.customFields
+            if (field.option.length > 0) {
+                this.dataService.query<any, any>(OPTION_BY_NAME, {name: field.option})
+                .subscribe(resp =>{
+                    console.log("response option =>", resp)
+                    this.option = resp.findOptionByNames;
+                })
+            }
             if (this.product.featuredAsset) {
                 this.selectedAsset = this.product.featuredAsset;
             }

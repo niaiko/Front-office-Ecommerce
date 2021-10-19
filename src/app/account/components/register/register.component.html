@@ -2,33 +2,51 @@
       (submit)="register()">
     <vsf-centered-card>
             <input class="form-control"
-                   placeholder="First name"
+                   placeholder="Nom"
                    name="firstName"
                    required
                    [disabled]="registrationSent"
                    [(ngModel)]="firstName">
             <input class="form-control mt-1"
-                   placeholder="Last name"
+                   placeholder="Prenom"
                    name="lastName"
                    required
                    [disabled]="registrationSent"
                    [(ngModel)]="lastName">
             <input class="form-control mt-1"
-                   placeholder="Email address"
+                   placeholder="Adresse e-mail"
                    name="emailAddress"
                    required
                    type="email"
                    email
                    [disabled]="registrationSent"
                    [(ngModel)]="emailAddress">
+            <ngx-intl-tel-input
+                    [cssClass]="'pays'"
+                    [preferredCountries]="[CountryISO.France]"
+                    [enableAutoCountrySelect]="false"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.France"
+                    [maxLength]="15"
+                    [phoneValidation]="true"
+                    name="phone"
+                    [(ngModel)]="phone"
+                ></ngx-intl-tel-input>
+            <input class="form-control mt-1"
+                    placeholder="Mot de passe"
+                    name="password"
+                    required
+                    type="password"
+                    [disabled]="registrationSent"
+                    [(ngModel)]="password">
 
         <button class="btn btn-primary btn-block mt-3"
                 [disabled]="registerForm.invalid || registrationSent"
                 type="submit">
-            Register
+            Inscrire
         </button>
-        <div *ngIf="registrationSent" class="registration-sent">
-            Great! Now check your email ({{ emailAddress }}) to complete registration.
-        </div>
     </vsf-centered-card>
 </form>

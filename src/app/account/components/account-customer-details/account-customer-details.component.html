@@ -1,25 +1,32 @@
 <ng-container *ngIf="form">
     <form [formGroup]="form">
         <div class="form-group row">
-            <label for="firstName" class="col-sm-3 col-form-label">First name</label>
+            <label for="firstName" class="col-sm-3 col-form-label">Nom</label>
             <div class="col-sm-9">
                 <input class="form-control" formControlName="firstName" id="firstName">
             </div>
         </div>
         <div class="form-group row">
-            <label for="lastName" class="col-sm-3 col-form-label">Last name</label>
+            <label for="lastName" class="col-sm-3 col-form-label">Prenom</label>
             <div class="col-sm-9">
                 <input class="form-control" formControlName="lastName" id="lastName">
             </div>
         </div>
         <div class="form-group row">
-            <label for="phoneNumber" class="col-sm-3 col-form-label">Phone number</label>
+            <label for="phoneNumber" class="col-sm-3 col-form-label">Téléphone</label>
             <div class="col-sm-9">
                 <input class="form-control" formControlName="phoneNumber" id="phoneNumber">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-3 col-form-label">Photo de profil</label>
+            <div class="col-sm-9">
+                <img *ngIf="avt === null" src="../../../../assets/nullUser.png" alt="" width="100" height="120">
+                <input class="form-control" (change)="handleFileInput($event.target.files)" type="file">
             </div>
         </div>
     </form>
     <button class="btn btn-secondary mt-3"
             [disabled]="form.invalid || form.pristine"
-            (click)="updateDetails()">Update Details</button>
+            (click)="updateDetails()">Modifier</button>
 </ng-container>

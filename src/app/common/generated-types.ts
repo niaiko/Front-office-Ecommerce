@@ -3906,7 +3906,7 @@ export type GetProductDetailQuery = (
   { __typename?: 'Query' }
   & { product?: Maybe<(
     { __typename?: 'Product' }
-    & Pick<Product, 'id' | 'name' | 'description'>
+    & Pick<Product, 'id' | 'name' | 'description' | 'customFields'>
     & { variants: Array<(
       { __typename?: 'ProductVariant' }
       & Pick<ProductVariant, 'id' | 'name' | 'price' | 'priceWithTax' | 'sku'>

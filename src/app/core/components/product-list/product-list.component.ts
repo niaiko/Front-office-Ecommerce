@@ -23,7 +23,7 @@ import { AssetPreviewPipe } from '../../../shared/pipes/asset-preview.pipe';
 import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
 
-import { GET_COLLECTION, GET_PRODUCT_BY_MENU, SEARCH_PRODUCTS } from './product-list.graphql';
+import { GET_COLLECTION, GET_PRODUCT_ENABLED_BY_MENU, SEARCH_PRODUCTS } from './product-list.graphql';
 
 @Component({
     selector: 'vsf-product-list',
@@ -67,11 +67,11 @@ export class ProductListComponent implements OnInit {
             }),
             shareReplay(1),
         );
-        this.dataService.query<any, any>(GET_PRODUCT_BY_MENU, {
+        this.dataService.query<any, any>(GET_PRODUCT_ENABLED_BY_MENU, {
             id: this.idMenu
         }).subscribe(resp =>{
             console.log('DATA PAR ID MENU', resp)
-            const data: any[] = resp.productMenu;
+            const data: any[] = resp.productMenuEnable;
             for (let i = 0; i < data.length; i++) {
                 this.liste.push({
                     description: data[i].description,

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { DialogButtonsDirective } from '../core/components/modal-dialog/dialog-buttons.directive';
 import { DialogComponentOutletComponent } from '../core/components/modal-dialog/dialog-component-outlet.component';
@@ -53,6 +54,7 @@ const IMPORTS = [
     ReactiveFormsModule,
     OverlayModule,
     RouterModule,
+    NgxIntlTelInputModule
 ];
 
 @NgModule({

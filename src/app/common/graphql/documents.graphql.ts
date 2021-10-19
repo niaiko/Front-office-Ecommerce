@@ -32,6 +32,9 @@ export const GET_ACTIVE_CUSTOMER = gql`
             lastName
             emailAddress
             phoneNumber
+            customFields {
+                avatar
+            }
         }
     }
 `;

@@ -9,6 +9,10 @@ export const GET_PRODUCT_DETAIL = gql`
             id
             name
             description
+            customFields {
+                option
+                allergenes
+              }
             variants {
                 id
                 name
@@ -54,4 +58,20 @@ export const ADD_TO_CART = gql`
     }
     ${CART_FRAGMENT}
     ${ERROR_RESULT_FRAGMENT}
+`;
+
+export const OPTION_BY_NAME = gql`
+    query findOption($name: [String!]) {
+        findOptionByNames(name: $name) {
+        id
+            name
+            qte
+            obligatoire
+            composants {
+            id
+            name
+            prix
+            }
+        }
+    }
 `;

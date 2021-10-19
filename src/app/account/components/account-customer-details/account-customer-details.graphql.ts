@@ -12,3 +12,9 @@ export const UPDATE_CUSTOMER_DETAILS = gql`
         }
     }
 `;
+
+export const UPDATE_AVATAR= gql`
+    mutation avatar($file: Upload!){
+        updateAvatarCustomers(input: {file: $file})
+        }
+`;

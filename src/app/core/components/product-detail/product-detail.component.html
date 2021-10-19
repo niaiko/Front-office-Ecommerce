@@ -31,12 +31,23 @@
                         </div>
                         <button [disabled]="qty === 0"
                                 class="btn btn-primary btn-lg"
-                                (click)="addToCart(selectedVariant, qty)">Add to cart
+                                (click)="addToCart(selectedVariant, qty)">Ajouter dans le panier
                         </button>
                     </div>
                 </div>
                 <div class="description" [innerHTML]="product.description">
                 </div>
+                <div class="card" *ngFor="let opt of option">
+                    <div class="card-body option">
+                      <h5 class="card-title">{{opt.name}}</h5>
+                      <p class="card-text">Séléction maxium {{opt.qte}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush" *ngFor="let comp of opt.composants">
+                      <li class="list-group-item">
+                          {{comp.name}}
+                        </li>
+                    </ul>
+                  </div>
             </div>
         </div>
     </ng-template>
