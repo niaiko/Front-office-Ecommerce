@@ -53,9 +53,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             withLatestFrom(lastCollectionSlug$),
         ).subscribe(([product, lastCollectionSlug]) => {
             this.product = product;
-            const field: any = product.customFields
-            if (field.option.length > 0) {
-                this.dataService.query<any, any>(OPTION_BY_NAME, {name: field.option})
+            const field: any[] = product.customFields.option
+            if (field) {
+                this.dataService.query<any, any>(OPTION_BY_NAME, {name: field})
                 .subscribe(resp =>{
                     console.log("response option =>", resp)
                     this.option = resp.findOptionByNames;
