@@ -31,6 +31,10 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductSearchBarComponent } from './components/product-search-bar/product-search-bar.component';
 import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
+import {MatListModule} from '@angular/material/list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -60,6 +64,9 @@ let providedCacheState: any | undefined;
     ],
     imports: [
         HttpClientModule,
+        MatListModule,
+        MatCheckboxModule,
+        MatBadgeModule,
         SharedModule,
         BrowserModule,
     ],

@@ -1,4 +1,6 @@
+import { GET_ACTIVE_CHANNEL } from './../../../shared/pipes/get-active-channel.graphql';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatListOption } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -9,7 +11,7 @@ import { DataService } from '../../providers/data/data.service';
 import { NotificationService } from '../../providers/notification/notification.service';
 import { StateService } from '../../providers/state/state.service';
 
-import { ADD_TO_CART, GET_PRODUCT_DETAIL, OPTION_BY_NAME } from './product-detail.graphql';
+import { ADD_TO_CART, GET_PRODUCT_DETAIL, OPTION_BY_NAME, TAX_CHANNEL } from './product-detail.graphql';
 
 @Component({
     selector: 'vsf-product-detail',
@@ -23,15 +25,22 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     selectedVariant: GetProductDetail.Variants;
     qty = 1;
     breadcrumbs: GetProductDetail.Breadcrumbs[] | null = null;
-    @ViewChild('addedToCartTemplate', {static: true})
+    @ViewChild('addedToCartTemplate', { static: true })
     private addToCartTemplate: TemplateRef<any>;
     private sub: Subscription;
     option: any;
+    prixOption: any[] = [];
+    addPrix: boolean;
+    total: any = 0;
+    totalWithTax: any;
+    nameOption: any[] = [];
+    priceOption: any[] = [];
+    taxe: any;
 
     constructor(private dataService: DataService,
-                private stateService: StateService,
-                private notificationService: NotificationService,
-                private route: ActivatedRoute) {
+        private stateService: StateService,
+        private notificationService: NotificationService,
+        private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -44,8 +53,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.sub = productSlug$.pipe(
             switchMap(slug => {
                 return this.dataService.query<GetProductDetail.Query, GetProductDetail.Variables>(GET_PRODUCT_DETAIL, {
-                        slug,
-                    },
+                    slug,
+                },
                 );
             }),
             map(data => data.product),
@@ -55,19 +64,30 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             this.product = product;
             const field: any[] = product.customFields.option
             if (field) {
-                this.dataService.query<any, any>(OPTION_BY_NAME, {name: field})
-                .subscribe(resp =>{
-                    console.log("response option =>", resp)
-                    this.option = resp.findOptionByNames;
-                })
+                this.dataService.query<any, any>(OPTION_BY_NAME, { name: field })
+                    .subscribe(resp => {
+                        this.option = resp.findOptionByNames;
+                    })
             }
             if (this.product.featuredAsset) {
                 this.selectedAsset = this.product.featuredAsset;
             }
             this.selectedVariant = product.variants[0];
+            const prix: any = product.variants[0].priceWithTax + (parseFloat(this.total))
+            console.log('PRIX pory =<', prix)
+            this.totalWithTax = parseFloat(prix) ;
             const collection = this.getMostRelevantCollection(product.collections, lastCollectionSlug);
             this.breadcrumbs = collection ? collection.breadcrumbs : [];
         });
+        this.dataService.query<any, any>(GET_ACTIVE_CHANNEL).subscribe(res =>{
+            if (res) {
+                this.dataService.query<any, any>(TAX_CHANNEL, {id: res.activeChannel.id}).subscribe(tax =>{
+                    
+                    this.taxe = parseFloat(tax.getTaxRestaurant.tax) / 100
+                    console.log('tazxe>', this.taxe)
+                })
+            }
+        })
     }
 
     ngOnDestroy() {
@@ -77,14 +97,26 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     addToCart(variant: GetProductDetail.Variants, qty: number) {
-        this.dataService.mutate<AddToCart.Mutation, AddToCart.Variables>(ADD_TO_CART, {
-            variantId: variant.id,
+        console.log('name optio =>', this.nameOption)
+        for (let i = 0; i < this.prixOption.length; i++) {
+            // this.nameOption.push(JSON.stringify(this.prixOption[i]))
+            this.nameOption.push(JSON.stringify(this.prixOption[i]))
+            this.priceOption.push(this.prixOption[i].composants[0].prix)
+        }
+        this.dataService.mutate<AddToCart.Mutation, any>(ADD_TO_CART, {
+            variantId: parseInt(variant.id),
             qty,
-        }).subscribe(({addItemToOrder}) => {
+            customFields: {
+                listSuppl: this.nameOption,
+                supplement: this.priceOption
+            }
+        }).subscribe(({ addItemToOrder }) => {
             switch (addItemToOrder.__typename) {
                 case 'Order':
                     this.stateService.setState('activeOrderId', addItemToOrder ? addItemToOrder.id : null);
                     if (variant) {
+                        this.ngOnInit();
+                        window.location.reload()
                         this.notificationService.notify({
                             title: 'Added to cart',
                             type: 'info',
@@ -131,6 +163,43 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             }
             return 0;
         })[0];
+    }
+
+    onCheckboxChange(sup: any, opt: any) {
+        console.log('option', opt)
+        this.total = 0
+        if (this.addPrix == true) {
+            //this.prixOption.push({ prix: parseFloat(sup.prix), id: sup.id, name: sup.name })
+            this.prixOption.push(
+                {
+                    id: opt.id,
+                    name: opt.name,
+                    qte: opt.qte,
+                    obligatoire: opt.obligatoire,
+                    composants: [{
+                        id: sup.id,
+                        name: sup.name,
+                        // prix: (sup.prix * 100) + (sup.prix * 100 * this.taxe)
+                        prix: (sup.prix * 100)
+                    }]
+                }
+            )
+        } else {
+            for (let i = this.prixOption.length - 1; i >= 0; i--) {
+                if (this.prixOption[i].composants[0].id === sup.id) {
+                    this.prixOption.splice(i, 1);
+                }
+            }
+        }
+        for (let i in this.prixOption) {
+            this.total += this.prixOption[i].composants[0].prix;
+        }
+        console.group('iiii', this.prixOption)
+        this.ngOnInit()
+    }
+
+    selectionChange(option: MatListOption) {
+        this.addPrix = option.selected
     }
 
 }

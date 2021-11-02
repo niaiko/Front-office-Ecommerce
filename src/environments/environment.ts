@@ -11,6 +11,11 @@ export const environment = {
     tokenMethod: 'bearer',
 };
 
+export const googleapi = {
+    baseurl: "https://maps.googleapis.com/maps/api/",
+    token: "AIzaSyCuZlb0v4TbMIES180im7-A1X7iiWJSPqs"
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

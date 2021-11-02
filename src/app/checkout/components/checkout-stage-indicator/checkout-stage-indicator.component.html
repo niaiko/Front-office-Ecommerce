@@ -1,11 +1,11 @@
 <div class="stage" *ngIf="!signedIn" [class.active]="activeStage === 1">
     <div class="number">1</div>
-    <div class="label">Account</div>
+    <div class="label">Compte</div>
 </div>
 <div class="line" *ngIf="!signedIn"></div>
 <div class="stage" [class.active]="activeStage === 2">
     <div class="number">{{ signedIn ? 1 : 2}}</div>
-    <div class="label">Shipping</div>
+    <div class="label">Livraison</div>
 </div>
 <div class="line"></div>
 <div class="stage" [class.active]="activeStage === 3">

@@ -6,7 +6,7 @@
                     <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
                 </div>
                 <div class="details">
-                    <div class="name">{{ line.productVariant?.name }}</div>
+                    <div class="name" style="font-weight: bold; color: #c52525;">{{ line.productVariant?.name }}</div>
                     <div class="figures">
                         <div class="price">{{ line.unitPriceWithTax | formatPrice }}</div>
                         <div class="qty-controls">
@@ -32,6 +32,35 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col-md-12 row">
+                <div class="col-md-10">
+                    Prix unitaire <span style="font-weight: bold;"> {{line.productVariant?.name}}</span> :
+                </div>
+                <div class="col-md-2">
+                    {{line.productVariant?.price | formatPrice}}
+                </div>
+                <div class="col-md-10">
+                    Prix avec taxe :
+                </div>
+                <div class="col-md-2">
+                    {{line.productVariant?.priceWithTax | formatPrice}}
+                </div>
+                <!-- <div class="col-md-10" style="display: none;">
+                <ng-container class="name" *ngFor="let cust of line.customFields.listSuppl">
+                    {{cust}}
+                </ng-container>
+            </div> -->
+            <div class="col-md-12" *ngIf="line.customFields.supplement.length > 0">
+                <ng-container class="total" *ngFor="let cust of line.customFields.supplement; let i = index">
+                   Prix supplemnt <span style="font-weight: bold;">{{i + 1}} </span> :  {{cust | formatPrice}}
+                   <br>
+                   Prix supplemnt <span style="font-weight: bold;">{{i + 1}} </span> avec taxe:  {{(cust * (taxe/100) + cust) / 100 }} €
+                   <br>
+                </ng-container>
+            </div>
+            </div>
+            
         </ng-container>
     </div>
     <div class="order-adjustments" *ngIf="cart.discounts.length">
@@ -43,7 +72,7 @@
     </div>
     <div class="shipping">
         <div class="shipping-price">
-            <span>Shipping:</span>
+            <span>expédition:</span>
             <span>{{ cart.shippingWithTax | formatPrice }}</span>
         </div>
         <div class="shipping-method" *ngFor="let shippingLine of cart.shippingLines">
@@ -52,6 +81,14 @@
     </div>
     <div class="totals">
         <span>Total:</span>
+        <span>{{ cart.total | formatPrice }}</span>
+    </div>
+    <div class="totals" *ngIf="taxe">
+        <span>TVA:</span>
+        <span>{{ taxe }} %</span>
+    </div>
+    <div class="totals">
+        <span>Total avec taxe:</span>
         <span>{{ cart.totalWithTax | formatPrice }}</span>
     </div>
 </div>

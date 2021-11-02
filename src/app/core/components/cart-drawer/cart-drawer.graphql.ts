@@ -33,3 +33,9 @@ export const REMOVE_ITEM_FROM_CART = gql`
     ${CART_FRAGMENT}
     ${ERROR_RESULT_FRAGMENT}
 `;
+
+export const SET_RECUPERATION = gql`
+    mutation updateDeliveryDate($input: UpdateDeliveryDateInput!) {
+        updateDeliveryDate(input: $input) 
+    }
+`

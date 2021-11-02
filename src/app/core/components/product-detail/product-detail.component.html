@@ -1,21 +1,19 @@
 <div class="container">
-    <vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs"
-                                *ngIf="product"
-                                class="mb-2"
-                                [linkLast]="true"></vsf-collection-breadcrumbs>
+    <vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs" *ngIf="product" class="mb-2" [linkLast]="true">
+    </vsf-collection-breadcrumbs>
     <ng-template [ngIf]="product" [ngIfElse]="placeholder">
         <div class="row">
             <div class="col-12 col-md-6 text-center">
-                <vsf-asset-gallery [assets]="product.assets"
-                                   [selectedAssetId]="product.featuredAsset?.id"></vsf-asset-gallery>
+                <vsf-asset-gallery [assets]="product.assets" [selectedAssetId]="product.featuredAsset?.id">
+                </vsf-asset-gallery>
             </div>
             <div class="col-12 col-md-6" #zoomPreviewArea>
                 <h2 class="display-4 product-name">{{ product.name }}</h2>
                 <div class="purchase-options">
                     <div class="variant-selector" *ngIf="product.variants.length > 1">
                         <select [(ngModel)]="selectedVariant" class="form-control">
-                            <option *ngFor="let variant of product.variants"
-                                    [ngValue]="variant">{{ variant.name }}</option>
+                            <option *ngFor="let variant of product.variants" [ngValue]="variant">{{ variant.name }}
+                            </option>
                         </select>
                     </div>
                     <div class="add-to-cart-row">
@@ -23,31 +21,43 @@
                             {{ selectedVariant?.sku }}
                         </div>
                         <div class="price">
-                            {{ selectedVariant?.priceWithTax | formatPrice }}
+                            <!-- {{ selectedVariant?.priceWithTax | formatPrice }} -->
+                            {{ totalWithTax | formatPrice }}
                         </div>
                         <div class="qty mr-md-2 ml-2">
                             <input type="number" min="0" max="99" placeholder="Qty" [(ngModel)]="qty"
-                                   class="form-control form-control-lg">
+                                class="form-control form-control-lg">
                         </div>
-                        <button [disabled]="qty === 0"
-                                class="btn btn-primary btn-lg"
-                                (click)="addToCart(selectedVariant, qty)">Ajouter dans le panier
+                        <button [disabled]="qty === 0" class="btn btn-primary btn-lg"
+                            (click)="addToCart(selectedVariant, qty)">Ajouter dans le panier
                         </button>
                     </div>
                 </div>
                 <div class="description" [innerHTML]="product.description">
                 </div>
-                <div class="card" *ngFor="let opt of option">
-                    <div class="card-body option">
-                      <h5 class="card-title">{{opt.name}}</h5>
-                      <p class="card-text">Séléction maxium {{opt.qte}}</p>
-                    </div>
-                    <ul class="list-group list-group-flush" *ngFor="let comp of opt.composants">
-                      <li class="list-group-item">
-                          {{comp.name}}
-                        </li>
-                    </ul>
-                  </div>
+                <mat-selection-list #dev  
+                (selectionChange)="selectionChange($event.option)"
+                 class="card"
+                 *ngFor="let opt of option">
+                    {{opt.name}} (Selection maximum {{opt.qte}})
+                    <p>
+                        Options selectionné: {{dev.selectedOptions.selected.length}} / {{opt.qte}}
+                    </p>
+                    <ng-container *ngFor="let shoe of opt.composants; let i = index">
+                        <mat-list-option 
+                        *ngIf="shoe.actif === true"
+                        [attr.data-index]="i"
+                        (click)="onCheckboxChange(shoe, opt)"
+                        [disabled]="dev.selectedOptions.selected.length === opt.qte"
+                        [selected]="shoe.selected"
+                        [value]="shoe">
+                        {{shoe.name}}
+                        <span style="font-size:11px">({{(shoe.prix * 100) | formatPrice}})</span>
+                        <!-- <span style="font-size:11px">({{(shoe.prix * 100) + (shoe.prix * 100 * taxe) | formatPrice}})</span> -->
+                    </mat-list-option>
+                    </ng-container>
+                </mat-selection-list>
+
             </div>
         </div>
     </ng-template>
@@ -70,11 +80,8 @@
 <ng-template #addedToCartTemplate let-variant="variant" let-quantity="quantity" let-close="closeFn">
     <div class="add-to-cart-notification">
         <div class="thumb mr-2">
-            <img
-                class=""
-                [src]="(variant.featuredAsset?.preview || product.featuredAsset?.preview) + '?preset=tiny'"
-                alt="product thumbnail"
-            />
+            <img class="" [src]="(variant.featuredAsset?.preview || product.featuredAsset?.preview) + '?preset=tiny'"
+                alt="product thumbnail" />
         </div>
         <div>{{ quantity }} x {{ variant.name }}</div>
     </div>

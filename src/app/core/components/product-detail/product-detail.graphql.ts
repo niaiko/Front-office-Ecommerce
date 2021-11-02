@@ -45,8 +45,8 @@ export const GET_PRODUCT_DETAIL = gql`
 `;
 
 export const ADD_TO_CART = gql`
-    mutation AddToCart($variantId: ID!, $qty: Int!) {
-        addItemToOrder(productVariantId: $variantId, quantity: $qty) {
+    mutation AddToCart($variantId: ID!, $qty: Int!, $customFields: OrderLineCustomFieldsInput) {
+        addItemToOrder(productVariantId: $variantId, quantity: $qty, customFields: $customFields) {
             ...Cart
             ...ErrorResult
             ...on InsufficientStockError {
@@ -71,7 +71,17 @@ export const OPTION_BY_NAME = gql`
             id
             name
             prix
+            actif
             }
         }
     }
 `;
+
+export const TAX_CHANNEL = gql`
+query getTax($id: ID!) {
+    getTaxRestaurant(id: $id) {
+      tax
+      __typename
+    }
+  }
+`

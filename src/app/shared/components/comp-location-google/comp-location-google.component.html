@@ -1,0 +1,8 @@
+<input ngx-google-places-autocomplete 
+    [options]='options' 
+    #placesRef="ngx-places" 
+    (onAddressChange)="handleAddressChange($event)" 
+    class="form-control"
+    style="width: 400px;"
+    [placeholder]="inputAdress"
+/>

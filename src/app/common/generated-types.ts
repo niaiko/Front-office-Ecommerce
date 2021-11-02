@@ -3650,16 +3650,16 @@ export type AssetFragment = (
 
 export type CartFragment = (
   { __typename?: 'Order' }
-  & Pick<Order, 'id' | 'code' | 'state' | 'active' | 'totalQuantity' | 'subTotal' | 'subTotalWithTax' | 'total' | 'totalWithTax' | 'shipping' | 'shippingWithTax'>
+  & Pick<Order, 'id' | 'customFields' | 'code' | 'state' | 'active' | 'totalQuantity' | 'subTotal' | 'subTotalWithTax' | 'total' | 'totalWithTax' | 'shipping' | 'shippingWithTax'>
   & { lines: Array<(
     { __typename?: 'OrderLine' }
-    & Pick<OrderLine, 'id' | 'unitPrice' | 'unitPriceWithTax' | 'quantity' | 'linePriceWithTax' | 'discountedLinePriceWithTax'>
+    & Pick<OrderLine, 'id' | 'customFields' | 'unitPrice' | 'unitPriceWithTax' | 'quantity' | 'linePriceWithTax' | 'discountedLinePriceWithTax'>
     & { featuredAsset?: Maybe<(
       { __typename?: 'Asset' }
       & AssetFragment
     )>, productVariant: (
       { __typename?: 'ProductVariant' }
-      & Pick<ProductVariant, 'id' | 'name'>
+      & Pick<ProductVariant, 'id' | 'name' | 'customFields'>
     ), discounts: Array<(
       { __typename?: 'Discount' }
       & Pick<Discount, 'amount' | 'amountWithTax' | 'description' | 'adjustmentSource' | 'type'>

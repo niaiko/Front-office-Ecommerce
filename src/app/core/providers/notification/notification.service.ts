@@ -55,9 +55,9 @@ export class NotificationService {
 
     error(message: string) {
         return this.notify({
-            title: 'An error occurred',
+            title: 'Une erreur s\'est produite',
             message,
-            duration: 10000,
+            duration: 5000,
             type: 'error',
         });
     }

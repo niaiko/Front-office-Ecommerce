@@ -1,13 +1,21 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { GET_ACTIVE_ORDER } from './../../../core/components/cart-drawer/cart-drawer.graphql';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AddPayment, GetEligiblePaymentMethods } from '../../../common/generated-types';
+import { AddPayment, GetActiveOrder, GetEligiblePaymentMethods } from '../../../common/generated-types';
 import { DataService } from '../../../core/providers/data/data.service';
 import { StateService } from '../../../core/providers/state/state.service';
 
 import { ADD_PAYMENT, GET_ELIGIBLE_PAYMENT_METHODS } from './checkout-payment.graphql';
 import { map } from 'rxjs/operators';
+import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import {
+  StripeCardElementOptions,
+  StripeElementsOptions
+} from '@stripe/stripe-js';
+
 
 @Component({
     selector: 'vsf-checkout-payment',
@@ -22,14 +30,19 @@ export class CheckoutPaymentComponent implements OnInit {
     paymentMethods$: Observable<GetEligiblePaymentMethods.EligiblePaymentMethods[]>
     paymentErrorMessage: string | undefined;
 
+
     constructor(private dataService: DataService,
-                private stateService: StateService,
-                private router: Router,
-                private route: ActivatedRoute) { }
+        private stateService: StateService,
+        private router: Router,
+        private route: ActivatedRoute,) { }
 
     ngOnInit() {
         this.paymentMethods$ = this.dataService.query<GetEligiblePaymentMethods.Query>(GET_ELIGIBLE_PAYMENT_METHODS)
             .pipe(map(res => res.eligiblePaymentMethods));
+        this.dataService.query<GetActiveOrder.Query, GetActiveOrder.Variables>(GET_ACTIVE_ORDER, {}, 'network-only')
+        .subscribe(res =>{
+            console.log('active order => ', res)
+        })
     }
 
     getMonths(): number[] {
@@ -70,4 +83,8 @@ export class CheckoutPaymentComponent implements OnInit {
 
             });
     }
+
+    payer(): void {
+       
+      }
 }

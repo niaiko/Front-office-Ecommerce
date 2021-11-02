@@ -1,6 +1,7 @@
 @import "bootstrap";
 @import "~@angular/cdk/overlay-prebuilt";
 
+
 @import "variables";
 
 .loading-placeholder {
@@ -37,3 +38,6 @@ img[data-zoom] {
 .vsf-zoom-zoom-pane {
     box-shadow: $box-shadow-lg;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

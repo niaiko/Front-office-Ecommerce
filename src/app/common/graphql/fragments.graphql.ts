@@ -23,6 +23,10 @@ export const CART_FRAGMENT = gql`
         active
         lines {
             id
+            customFields {
+                listSuppl
+                supplement
+            }
             featuredAsset {
                 ...Asset
             }
@@ -34,6 +38,8 @@ export const CART_FRAGMENT = gql`
             productVariant {
                 id
                 name
+                price
+                priceWithTax
             }
             discounts {
                 amount

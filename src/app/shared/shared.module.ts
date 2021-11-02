@@ -1,9 +1,11 @@
+import { CompLocationGoogleComponent } from './components/comp-location-google/comp-location-google.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { DialogButtonsDirective } from '../core/components/modal-dialog/dialog-buttons.directive';
@@ -25,6 +27,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AssetPreviewPipe } from './pipes/asset-preview.pipe';
 import { FormatPricePipe } from './pipes/format-price.pipe';
 import { ProductUrlPipe } from './pipes/product-url.pipe';
+import {MatRadioModule} from '@angular/material/radio';
 
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
@@ -33,6 +36,7 @@ const SHARED_DECLARATIONS = [
     AddressFormComponent,
     CenteredCardComponent,
     DropdownComponent,
+    CompLocationGoogleComponent,
     DropdownTriggerDirective,
     DropdownContentDirective,
     DialogButtonsDirective,
@@ -54,7 +58,9 @@ const IMPORTS = [
     ReactiveFormsModule,
     OverlayModule,
     RouterModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    GooglePlaceModule,
+    MatRadioModule,
 ];
 
 @NgModule({

@@ -1,4 +1,6 @@
+import { GET_ACTIVE_ORDER, SET_RECUPERATION } from './../../../core/components/cart-drawer/cart-drawer.graphql';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatRadioChange } from '@angular/material/radio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
@@ -6,6 +8,7 @@ import { map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import {
     Address,
     CreateAddressInput,
+    GetActiveOrder,
     GetAvailableCountries,
     GetCustomerAddresses,
     GetEligibleShippingMethods,
@@ -32,6 +35,7 @@ import {
     SET_SHIPPING_METHOD,
     TRANSITION_TO_ARRANGING_PAYMENT,
 } from './checkout-shipping.graphql';
+import moment from 'moment';
 
 export type AddressFormValue = Pick<Address.Fragment, Exclude<keyof Address.Fragment, 'country'>> & { countryCode: string; };
 
@@ -49,11 +53,15 @@ export class CheckoutShippingComponent implements OnInit {
     eligibleShippingMethods$: Observable<GetEligibleShippingMethods.EligibleShippingMethods[]>;
     shippingAddress$: Observable<GetShippingAddress.ShippingAddress | null | undefined>;
     signedIn$: Observable<boolean>;
+    cart$: Observable<GetActiveOrder.ActiveOrder | null | undefined>;
     shippingMethodId: string | undefined;
     step: 'selectAddress' | 'customerDetails' | 'editAddress' | 'selectMethod' = 'selectAddress';
     firstName = '';
     lastName = '';
     emailAddress = '';
+    recup: any;
+    date: any;
+    idOrder: any;
 
     constructor(private dataService: DataService,
                 private stateService: StateService,
@@ -61,7 +69,8 @@ export class CheckoutShippingComponent implements OnInit {
                 private modalService: ModalService,
                 private notificationService: NotificationService,
                 private route: ActivatedRoute,
-                private router: Router) { }
+                private router: Router) {
+                 }
 
     ngOnInit() {
         this.signedIn$ = this.stateService.select(state => state.signedIn);
@@ -83,6 +92,11 @@ export class CheckoutShippingComponent implements OnInit {
         ).subscribe(([signedIn, addresses]) => {
             this.step = signedIn ? (addresses.length ? 'selectAddress' : 'editAddress') : 'customerDetails';
         });
+        this.dataService.query<GetActiveOrder.Query, GetActiveOrder.Variables>(GET_ACTIVE_ORDER, {}, 'network-only')
+                        .subscribe(res =>{
+                            this.idOrder = res.activeOrder?.id
+                        })
+     
     }
 
     getLines(address: Address.Fragment): string[] {
@@ -131,6 +145,36 @@ export class CheckoutShippingComponent implements OnInit {
         });
     }
 
+    setRecuperation(){
+        console.log('dateee', this.date)
+        if (this.date != undefined) {
+            const e = new Date(this.date)
+        const f = moment(e).format('MM/DD/YYYY' + ' à ' + 'hh:mm a');
+        this.dataService.mutate<any, any>(SET_RECUPERATION,
+            {input: {
+                orderId: [this.idOrder],
+                dateDelivery: f.toString()
+              }
+              }
+        ).subscribe((resp) =>{
+            this.step = 'selectMethod';
+            this.changeDetector.markForCheck();
+            console.log('recup', resp);
+            this.toPayement();
+        })
+        }else{
+            this.notificationService.error('Veuillez saisir votre heure de recuperation')
+        }
+        
+    }
+
+    toPayement(){
+        this.dataService.mutate<TransitionToArrangingPayment.Mutation>(TRANSITION_TO_ARRANGING_PAYMENT)
+        .subscribe((resp) =>{
+            this.router.navigate(['../payment'], { relativeTo: this.route });
+        })
+    }
+
     proceedToPayment() {
         const shippingMethodId = this.shippingMethodId;
         if (shippingMethodId) {
@@ -145,6 +189,8 @@ export class CheckoutShippingComponent implements OnInit {
             ).subscribe((data) => {
                 this.router.navigate(['../payment'], { relativeTo: this.route });
             });
+        }else{
+            this.notificationService.error('Veuillez choisir votre mode de livraison')
         }
     }
 
@@ -184,5 +230,14 @@ export class CheckoutShippingComponent implements OnInit {
 
     private isFormValue(input: AddressFormValue | Address.Fragment): input is AddressFormValue {
         return typeof (input as any).countryCode === 'string';
+    }
+
+    radioChange($event: MatRadioChange) {
+        console.log($event.source.name, $event.value);
+        this.recup = $event.value;
+    }
+
+    f(e: any){
+        console.log("shipping", e)
     }
 }

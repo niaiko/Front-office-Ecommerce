@@ -7,11 +7,11 @@
     <div class="summary" *ngIf="cart$ | async as cart">
         <vsf-cart-contents [cart]="cart" class="mb-3"></vsf-cart-contents>
         <vsf-address-card *ngIf="cart.shippingAddress?.streetLine1"
-                          title="Shipping address"
+                          title="Adresse de livraison"
                           [address]="cart.shippingAddress">
             <button class="btn btn-secondary"
                     *ngIf="(activeStage$ | async) === 3"
-                    (click)="changeShippingAddress()">Change
+                    (click)="changeShippingAddress()">Changer
             </button>
         </vsf-address-card>
     </div>
