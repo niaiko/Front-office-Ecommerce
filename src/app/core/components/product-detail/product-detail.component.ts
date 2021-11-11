@@ -1,3 +1,4 @@
+import { GET_ACTIVE_CUSTOMER, GET_FAVOURITE } from './../../../common/graphql/documents.graphql';
 import { GET_ACTIVE_CHANNEL } from './../../../shared/pipes/get-active-channel.graphql';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatListOption } from '@angular/material/list';
@@ -11,7 +12,7 @@ import { DataService } from '../../providers/data/data.service';
 import { NotificationService } from '../../providers/notification/notification.service';
 import { StateService } from '../../providers/state/state.service';
 
-import { ADD_TO_CART, GET_PRODUCT_DETAIL, OPTION_BY_NAME, TAX_CHANNEL } from './product-detail.graphql';
+import { ADD_TO_CART, GET_PRODUCT_DETAIL, OPTION_BY_NAME, SET_FAVORI, TAX_CHANNEL } from './product-detail.graphql';
 
 @Component({
     selector: 'vsf-product-detail',
@@ -36,6 +37,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     nameOption: any[] = [];
     priceOption: any[] = [];
     taxe: any;
+    favori: boolean;
+    act: boolean;
 
     constructor(private dataService: DataService,
         private stateService: StateService,
@@ -62,6 +65,26 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             withLatestFrom(lastCollectionSlug$),
         ).subscribe(([product, lastCollectionSlug]) => {
             this.product = product;
+            this.dataService.query<any>(GET_ACTIVE_CUSTOMER, {}, 'network-only').subscribe(act =>{
+                if (act.activeCustomer != null) {
+                    this.act = true
+                    this.dataService.query<any>(GET_FAVOURITE, {
+                        customer: act.activeCustomer.id
+                    }).subscribe(fav =>{
+                        const data: any = []
+                        for (let i = 0; i < fav.favorites.length; i++) {
+                            data.push(fav.favorites[i].id)
+                        }
+                        if (data.includes(this.product?.id) === true) {
+                            this.favori = true;
+                        } else {
+                            this.favori = false;
+                        }
+                    })
+                }else{
+                    this.act = false;
+                }
+            })
             const field: any[] = product.customFields.option
             if (field) {
                 this.dataService.query<any, any>(OPTION_BY_NAME, { name: field })
@@ -74,7 +97,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             }
             this.selectedVariant = product.variants[0];
             const prix: any = product.variants[0].priceWithTax + (parseFloat(this.total))
-            console.log('PRIX pory =<', prix)
             this.totalWithTax = parseFloat(prix) ;
             const collection = this.getMostRelevantCollection(product.collections, lastCollectionSlug);
             this.breadcrumbs = collection ? collection.breadcrumbs : [];
@@ -84,10 +106,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 this.dataService.query<any, any>(TAX_CHANNEL, {id: res.activeChannel.id}).subscribe(tax =>{
                     
                     this.taxe = parseFloat(tax.getTaxRestaurant.tax) / 100
-                    console.log('tazxe>', this.taxe)
                 })
             }
         })
+        
     }
 
     ngOnDestroy() {
@@ -200,6 +222,19 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     selectionChange(option: MatListOption) {
         this.addPrix = option.selected
+    }
+
+    setFavori(){
+        this.dataService.mutate<any, any>(SET_FAVORI,
+            {
+                productId: this.product?.id
+            }
+            ).subscribe(res =>{
+                if (res) {
+                    window.location.reload()
+                }
+                
+            })
     }
 
 }

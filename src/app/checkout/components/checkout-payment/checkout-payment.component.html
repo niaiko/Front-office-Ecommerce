@@ -8,7 +8,7 @@
         </div>
     </div>
     <form class="payment-form mb-5" #paymentForm="ngForm" (submit)="completeOrder(paymentMethod.code)">
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
             <div class="input-group-prepend">
         <span class="input-group-text">
             <fa-icon icon="credit-card"></fa-icon>
@@ -40,7 +40,18 @@
 
         <button class="btn btn-primary btn-lg"
                 [disabled]="paymentForm.pristine || paymentForm.invalid">Complétez la commande
+        </button> -->
+        <input type="text" class="form-control" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Nom">
+        <br><br>
+        <ngx-stripe-card
+          [options]="cardOptions"
+          [elementsOptions]="elementsOptions"
+        ></ngx-stripe-card>
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg">
+          Complétez information carte
         </button>
+
     </form>
 
       

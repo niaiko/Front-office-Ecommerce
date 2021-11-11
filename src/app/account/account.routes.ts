@@ -1,3 +1,4 @@
+import { AccountFavoriComponent } from './components/account-favori/account-favori.component';
 import { Routes } from '@angular/router';
 
 import { SignInComponent } from '../shared/components/sign-in/sign-in.component';
@@ -33,6 +34,11 @@ export const routes: Routes = [
                 path: 'orders',
                 canActivate: [AccountGuard],
                 component: AccountOrderListComponent,
+            },
+            {
+                path: 'favori',
+                canActivate: [AccountGuard],
+                component: AccountFavoriComponent,
             },
             {
                 path: 'orders/:code',

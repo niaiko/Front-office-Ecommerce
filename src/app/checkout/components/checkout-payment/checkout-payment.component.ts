@@ -1,10 +1,12 @@
+import { GET_ACTIVE_CUSTOMER } from './../../../common/graphql/documents.graphql';
+import { UPDATE_CUSTOMER_DETAILS } from './../../../account/components/account-customer-details/account-customer-details.graphql';
 import { GET_ACTIVE_ORDER } from './../../../core/components/cart-drawer/cart-drawer.graphql';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AddPayment, GetActiveOrder, GetEligiblePaymentMethods } from '../../../common/generated-types';
+import { AddPayment, GetActiveCustomer, GetActiveOrder, GetEligiblePaymentMethods } from '../../../common/generated-types';
 import { DataService } from '../../../core/providers/data/data.service';
 import { StateService } from '../../../core/providers/state/state.service';
 
@@ -29,19 +31,43 @@ export class CheckoutPaymentComponent implements OnInit {
     expYear: number;
     paymentMethods$: Observable<GetEligiblePaymentMethods.EligiblePaymentMethods[]>
     paymentErrorMessage: string | undefined;
-
+    activeOrder: any;
+    name: any;
+    @ViewChild(StripeCardComponent) card: StripeCardComponent;
+    cardOptions: StripeCardElementOptions = {
+        style: {
+          base: {
+            iconColor: '#666EE8',
+            color: '#31325F',
+            fontWeight: '300',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSize: '18px',
+            '::placeholder': {
+              color: '#CFD7E0'
+            }
+          }
+        }
+      };
+      elementsOptions: StripeElementsOptions = {
+        locale: 'fr'
+      };
 
     constructor(private dataService: DataService,
         private stateService: StateService,
         private router: Router,
-        private route: ActivatedRoute,) { }
+        private route: ActivatedRoute,
+        private stripeService: StripeService) { }
 
     ngOnInit() {
         this.paymentMethods$ = this.dataService.query<GetEligiblePaymentMethods.Query>(GET_ELIGIBLE_PAYMENT_METHODS)
             .pipe(map(res => res.eligiblePaymentMethods));
         this.dataService.query<GetActiveOrder.Query, GetActiveOrder.Variables>(GET_ACTIVE_ORDER, {}, 'network-only')
         .subscribe(res =>{
-            console.log('active order => ', res)
+            this.activeOrder = res.activeOrder
+            console.log('active order => ', this.activeOrder)
+        })
+        this.dataService.query<GetActiveCustomer.Query>(GET_ACTIVE_CUSTOMER, {}, 'network-only').subscribe(res =>{
+            console.log('active custommmer =>', res.activeCustomer)
         })
     }
 
@@ -85,6 +111,31 @@ export class CheckoutPaymentComponent implements OnInit {
     }
 
     payer(): void {
-       
+       let order = []
+       for (let i = 0; i < this.activeOrder.lines.length; i++) {
+           order.push({
+               id: this.activeOrder.lines[i].id,
+               amount: this.activeOrder.totalWithTax,
+               code: this.activeOrder.code
+           })
+       }
+      }
+
+      updateCustomer(){
+          this.dataService.mutate<any, any>(UPDATE_CUSTOMER_DETAILS)
+      }
+    
+      createToken(): void {
+        this.stripeService
+          .createToken(this.card.element, { name: this.name })
+          .subscribe((result) => {
+            if (result.token) {
+              // Use the token
+              console.log(result);
+            } else if (result.error) {
+              // Error creating the token
+              console.log(result.error.message);
+            }
+          });
       }
 }

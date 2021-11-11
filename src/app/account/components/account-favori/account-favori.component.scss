@@ -1,0 +1,34 @@
+@import "variables";
+
+:host {
+    display: block;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 220px);
+    grid-row-gap: $spacer;
+    justify-content: space-around;
+    min-height: 50vh;
+}
+
+.no-results {
+    text-align: center;
+    margin: $spacer * 4 0;
+    font-size: $font-size-lg;
+    color: $gray-500;
+    width: 100%;
+}
+
+.load-more {
+    text-align: center;
+    width: 100%;
+}
+
+
+
+.price {
+    font-weight: normal;
+    text-align: center;
+    color: $gray-600;
+}

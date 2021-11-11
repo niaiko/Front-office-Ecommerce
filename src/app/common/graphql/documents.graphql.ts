@@ -34,6 +34,9 @@ export const GET_ACTIVE_CUSTOMER = gql`
             phoneNumber
             customFields {
                 avatar
+                ccLast4
+                stripeId
+                customerStripeId
             }
         }
     }
@@ -92,3 +95,32 @@ export const GET_PRODUIT_MENU = gql`
     }
   }
 `;
+
+export const GET_FAVOURITE = gql`
+    query favourite($customer: ID!) {
+        favorites(customer: $customer) {
+        id
+        __typename
+        variants {
+            id
+            name
+            priceWithTax
+            product {
+            name
+            slug
+            id
+            description
+            featuredAsset{
+                source
+                preview
+                id
+                focalPoint {
+                x
+                y
+                }
+            }
+            }
+        }
+        }
+    }   
+`

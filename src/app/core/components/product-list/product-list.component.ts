@@ -75,7 +75,7 @@ export class ProductListComponent implements OnInit {
             for (let i = 0; i < data.length; i++) {
                 this.liste.push({
                     description: data[i].description,
-                    productId: data[i].variants.productId,
+                    productId: data[i].variants[0].productId,
                     productName: data[i].name,
                     slug: data[i].slug,
                     __typename: data[i].__typename,

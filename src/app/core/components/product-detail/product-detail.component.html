@@ -1,6 +1,12 @@
 <div class="container">
     <vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs" *ngIf="product" class="mb-2" [linkLast]="true">
     </vsf-collection-breadcrumbs>
+    <button *ngIf="favori && act" (click)="setFavori()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button *ngIf="!favori && act" (click)="setFavori()" mat-icon-button color="info" aria-label="Example icon-button with a heart icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
     <ng-template [ngIf]="product" [ngIfElse]="placeholder">
         <div class="row">
             <div class="col-12 col-md-6 text-center">

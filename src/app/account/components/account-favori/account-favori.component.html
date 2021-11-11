@@ -1,0 +1,36 @@
+Produit favori
+<table class="table">
+    <thead>
+      <tr>
+        <th class="left"></th>
+        <th>Nom</th>
+        <th >Description</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="data.favorites.length > 0">
+      <tr *ngFor="let f of data.favorites">
+        <td class="left">
+            <div class="image-placeholder">
+                <img
+                    *ngIf="f.variants[0].product.featuredAsset as asset; else imagePlaceholder"
+                    [src]="asset | assetPreview:'tiny'"
+                />
+                <ng-template #imagePlaceholder>
+                    <div class="placeholder">Pas</div>
+                </ng-template>
+            </div>
+        </td>
+        <td>
+            <a [routerLink]="['/product', f.variants[0].product.slug]" class="product-name">
+                {{f.variants[0].product.name}}
+            </a>
+            <div class="price">
+                {{f.variants[0].priceWithTax | formatPrice}}
+            </div>
+            </td>
+        <td class="left">
+            <div class="text-description" [innerHTML]="f.variants[0].product.description"></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>

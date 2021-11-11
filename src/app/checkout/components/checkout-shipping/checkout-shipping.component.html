@@ -1,9 +1,18 @@
 <div class="accordion">
     <div class="card" *ngIf="(signedIn$ | async) && (customerAddresses$ | async)?.length">
         <div class="card-header">
-            <button class="btn btn-light" (click)="step = 'selectAddress'">Selectionné adresse</button>
+            <ng-container class="col-md-12 row">
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="recup" (change)="radioChange($event)">
+                    <mat-radio-button value="0">A livrer</mat-radio-button>
+                    <mat-radio-button value="1">A récuperer</mat-radio-button>
+                  </mat-radio-group>
+            </ng-container>
+            <br>
+            
         </div>
         <div class="card-body collapse" [class.show]="step === 'selectAddress'">
+            <ng-container *ngIf="recup === '0'">
+                <button class="btn btn-light" (click)="step = 'selectAddress'">Selectionné adresse</button>
             <div class="d-flex flex-wrap">
                 <div class="customer-address"
                      *ngFor="let address of customerAddresses$ | async"
@@ -16,6 +25,17 @@
                     <button class="btn btn-secondary" (click)="createAddress()">Ajouter nouveau adresse</button>
                 </div>
             </div>
+        </ng-container>
+        <ng-container *ngIf="recup === '1'">
+            <div class="form-group row">
+                <label for="fullName" class="col-sm-3 col-form-label">Heure de recuperation</label>
+                <div class="col-sm-9">
+                    <input class="form-control" [(ngModel)]="date" type="datetime-local" id="fullName">
+                </div>
+            </div> 
+        <button class="btn btn-secondary mt-3"
+                (click)="setRecuperation()">Enregistrer l'heure de récuperation</button>
+        </ng-container>
         </div>
     </div>
     <div class="card" *ngIf="!(signedIn$ | async)">

@@ -85,3 +85,19 @@ query getTax($id: ID!) {
     }
   }
 `
+export const SET_FAVORI = gql`
+    mutation setFavourite($productId: ID!) {
+        toggleFavorite(productId: $productId) {
+        id
+        variants {
+            id
+            name
+            product {
+            id
+            name
+            description
+            }
+        }
+        }
+    }  
+`

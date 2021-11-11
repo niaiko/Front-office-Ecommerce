@@ -34,6 +34,8 @@ import { DefaultInterceptor } from './providers/data/interceptor';
 import {MatListModule} from '@angular/material/list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 
 const CORE_COMPONENTS = [
@@ -69,6 +71,8 @@ let providedCacheState: any | undefined;
         MatBadgeModule,
         SharedModule,
         BrowserModule,
+        MatButtonModule,
+        MatIconModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

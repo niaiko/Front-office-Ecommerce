@@ -10,6 +10,11 @@
                     Tableau de bord
                 </a>
                 <a class="list-group-item list-group-item-action"
+                   [routerLink]="['./', 'favori']"
+                   routerLinkActive="active">
+                    produit favori
+                </a>
+                <a class="list-group-item list-group-item-action"
                    [routerLink]="['./', 'orders']"
                    routerLinkActive="active">
                     Commande

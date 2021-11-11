@@ -1,3 +1,4 @@
+import { AccountFavoriComponent } from './components/account-favori/account-favori.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -34,6 +35,7 @@ const DECLARATIONS = [
     ResetPasswordComponent,
     ForgottenPasswordComponent,
     ChangeEmailAddressComponent,
+    AccountFavoriComponent
 ];
 
 @NgModule({
