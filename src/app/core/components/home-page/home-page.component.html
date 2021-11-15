@@ -1,5 +1,5 @@
 <div class="titre">
-    <h4 class="display-1 title text-center">Grill Anatolia</h4>
+    <h3 class="display-1  text-center">Grill Anatolia</h3>
 </div>
 
 <div class="container">
@@ -8,6 +8,7 @@
                              [collection]="collection">
         </vsf-collection-card> -->
     </div>
+    <vsf-product-recommanded></vsf-product-recommanded>
     <h3 class="display-4 mt-5">Meilleur produit vendu</h3>
     <div class="product-list">
         <ng-container *ngIf="topSellersLoaded$ | async; else placeholders">

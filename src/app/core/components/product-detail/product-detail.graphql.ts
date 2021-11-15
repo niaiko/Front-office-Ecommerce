@@ -12,6 +12,7 @@ export const GET_PRODUCT_DETAIL = gql`
             customFields {
                 option
                 allergenes
+                menuId
               }
             variants {
                 id

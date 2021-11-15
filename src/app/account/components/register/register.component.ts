@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
+// import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
 
 import { Register } from '../../../common/generated-types';
 import { DataService } from '../../../core/providers/data/data.service';
@@ -14,9 +14,9 @@ import { REGISTER } from './register.graphql';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
-    CountryISO = CountryISO;
-    SearchCountryField = SearchCountryField;
-    PhoneNumberFormat = PhoneNumberFormat;
+    // CountryISO = CountryISO;
+    // SearchCountryField = SearchCountryField;
+    // PhoneNumberFormat = PhoneNumberFormat;
     firstName: string;
     lastName: string;
     emailAddress: string;

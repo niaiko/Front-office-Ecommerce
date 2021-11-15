@@ -36,7 +36,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-
+import { ProductRecommandedComponent } from './components/product-recommanded/product-recommanded.component';
+import { NgxCarouselModule } from 'ngx-light-carousel';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -55,6 +56,7 @@ const CORE_COMPONENTS = [
     ProductListControlsComponent,
     ProductSearchBarComponent,
     AssetGalleryComponent,
+    ProductRecommandedComponent
 ];
 
 let apolloCache: InMemoryCache;
@@ -72,7 +74,8 @@ let providedCacheState: any | undefined;
         SharedModule,
         BrowserModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        NgxCarouselModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

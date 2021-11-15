@@ -1,3 +1,4 @@
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { CompLocationGoogleComponent } from './components/comp-location-google/comp-location-google.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
@@ -6,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+// import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { DialogButtonsDirective } from '../core/components/modal-dialog/dialog-buttons.directive';
 import { DialogComponentOutletComponent } from '../core/components/modal-dialog/dialog-component-outlet.component';
@@ -49,6 +50,7 @@ const SHARED_DECLARATIONS = [
     FormatPricePipe,
     ProductUrlPipe,
     AssetPreviewPipe,
+    ContactUsComponent
 ];
 
 const IMPORTS = [
@@ -58,7 +60,7 @@ const IMPORTS = [
     ReactiveFormsModule,
     OverlayModule,
     RouterModule,
-    NgxIntlTelInputModule,
+    // NgxIntlTelInputModule,
     GooglePlaceModule,
     MatRadioModule,
 ];

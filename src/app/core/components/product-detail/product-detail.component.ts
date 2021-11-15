@@ -1,4 +1,4 @@
-import { GET_ACTIVE_CUSTOMER, GET_FAVOURITE } from './../../../common/graphql/documents.graphql';
+import { GET_ACTIVE_CUSTOMER, GET_FAVOURITE, GET_PRODUIT_MENU } from './../../../common/graphql/documents.graphql';
 import { GET_ACTIVE_CHANNEL } from './../../../shared/pipes/get-active-channel.graphql';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatListOption } from '@angular/material/list';
@@ -13,6 +13,7 @@ import { NotificationService } from '../../providers/notification/notification.s
 import { StateService } from '../../providers/state/state.service';
 
 import { ADD_TO_CART, GET_PRODUCT_DETAIL, OPTION_BY_NAME, SET_FAVORI, TAX_CHANNEL } from './product-detail.graphql';
+import { GET_PRODUCT_ENABLED_BY_MENU } from '../product-list/product-list.graphql';
 
 @Component({
     selector: 'vsf-product-detail',
@@ -39,6 +40,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     taxe: any;
     favori: boolean;
     act: boolean;
+    simil: any;
+    liste: any[] = [];
 
     constructor(private dataService: DataService,
         private stateService: StateService,
@@ -65,6 +68,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             withLatestFrom(lastCollectionSlug$),
         ).subscribe(([product, lastCollectionSlug]) => {
             this.product = product;
+            console.log("preoooo", product)
+            this.similaire(this.product.customFields.menuId)
             this.dataService.query<any>(GET_ACTIVE_CUSTOMER, {}, 'network-only').subscribe(act =>{
                 if (act.activeCustomer != null) {
                     this.act = true
@@ -235,6 +240,43 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 }
                 
             })
+    }
+
+    similaire(id: any){
+        this.simil = []
+        this.dataService.query<any>(GET_PRODUCT_ENABLED_BY_MENU, {
+            id: parseInt(id)
+        }).subscribe(resp =>{
+            if (resp) {
+                console.log('similaire =>', resp)
+                const data: any[] = resp.productMenuEnable;
+                for (let i = 0; i < 4; i++) {
+                    if (data[i].id !== this.product.id) {
+                        this.liste.push({
+                            description: data[i].description,
+                            productId: data[i].variants[0].productId,
+                            productName: data[i].name,
+                            slug: data[i].slug,
+                            __typename: data[i].__typename,
+                            priceWithTax: {
+                                max: data[i].variants[0].priceWithTax,
+                                min: data[i].variants[0].priceWithTax,
+                                __typename: "PriceRange"
+                            },
+                            productAsset: {
+                                focalPoint: data[i].featuredAsset.focalPoint,
+                                id: data[i].featuredAsset.id,
+                                preview: data[i].featuredAsset.preview
+                            }
+                        })
+                    }
+                }
+            }
+        })
+    }
+
+    autre(){
+        window.location.reload()
     }
 
 }

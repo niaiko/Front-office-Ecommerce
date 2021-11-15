@@ -1,0 +1,11 @@
+<div class="col-md-12 carousel colorDissolve" *ngIf="products.productRecommandeList.length > 0">
+    <div class="item" *ngFor="let item of products.productRecommandeList">
+    <img  src="{{item.featuredAsset.preview}}" width="100%" height="430px"/>
+    
+	<a [routerLink]="['/product', item.slug]">
+		<span>{{item.name}} ({{item.variants[0].priceWithTax | formatPrice}})</span>
+	</a>
+	<!-- <p>{{item.description}}</p> -->
+	<p class="description" [innerHTML]="item.description"></p>
+    </div>
+</div>

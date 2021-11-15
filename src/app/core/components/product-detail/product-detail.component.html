@@ -67,6 +67,21 @@
             </div>
         </div>
     </ng-template>
+    <br>
+    <div class="card">
+        <div class="card-title">
+            Produit similaire
+        </div>
+        <div class="card-body">
+            <div class="product-list">
+                <ng-container *ngIf="liste !== null">
+                    <vsf-product-card *ngFor="let product of liste" (click)="autre()"
+                                      [product]="product"></vsf-product-card>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    
     <ng-template #placeholder>
         <div class="placeholder-breadcrumb loading-placeholder"></div>
         <div class="row">
@@ -82,6 +97,8 @@
         </div>
     </ng-template>
 </div>
+
+
 
 <ng-template #addedToCartTemplate let-variant="variant" let-quantity="quantity" let-close="closeFn">
     <div class="add-to-cart-notification">

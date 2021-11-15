@@ -1,3 +1,4 @@
+import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
 import { Route } from '@angular/router';
 
 import { ProductDetailComponent } from './core/components/product-detail/product-detail.component';
@@ -16,6 +17,10 @@ export const routes: Route[] = [
     {
         path: 'product/:slug',
         component: ProductDetailComponent,
+    },
+    {
+        path: 'contact-us',
+        component: ContactUsComponent
     },
     {
         path: 'account',

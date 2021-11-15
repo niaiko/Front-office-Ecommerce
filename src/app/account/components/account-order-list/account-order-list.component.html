@@ -3,7 +3,7 @@
     <tr>
         <th scope="col">Code de  commande</th>
         <th scope="col">Status</th>
-        <th scope="col">Total</th>
+        <th scope="col">Total avec taxe</th>
         <th scope="col">Dérnier mise à jour</th>
     </tr>
     </thead>
@@ -14,8 +14,10 @@
                 {{ order.code }}
             </a>
         </th>
-        <td>{{ order.state }}</td>
-        <td>{{ order.total | formatPrice }}</td>
+        <td *ngIf="order.state === 'Shipped'" style="color: hotpink;">Expédié</td>
+        <td *ngIf="order.state === 'Delivered'" style="color: green;">Livré</td>
+        <td *ngIf="order.state === 'PaymentSettled'" style="color: greenyellow;">Paiement réglé</td>
+        <td>{{ order.totalWithTax | formatPrice }}</td>
         <td>{{ order.updatedAt | date: 'short' }}</td>
     </tr>
     </tbody>

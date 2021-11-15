@@ -1,0 +1,40 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<section class="get-in-touch">
+   <h1 class="title">Grill Anatolia</h1>
+   <p class="sous-titre">
+    TOUJOURS À VOTRE ÉCOUTE
+   </p><br>
+   <p class="sous-titre">
+    Une question ? Vous pouvez compter sur nos experts pour vous aider.
+   </p>
+   <form class="contact-form row">
+      <div class="form-field col-lg-6">
+         <input id="name" class="input-text js-input" [(ngModel)]="dataActive.firstName" [ngModelOptions]="{standalone: true}" type="text" required>
+         <label class="label" for="name">Nom</label>
+      </div>
+      <div class="form-field col-lg-6">
+        <input id="name" class="input-text js-input" [(ngModel)]="dataActive.lastName" [ngModelOptions]="{standalone: true}" type="text" required>
+        <label class="label" for="name">Prenom</label>
+     </div>
+      <div class="form-field col-lg-6 ">
+         <input id="email" class="input-text js-input" [(ngModel)]="dataActive.emailAddress" [ngModelOptions]="{standalone: true}" type="email" required>
+         <label class="label" for="email">E-mail</label>
+      </div>
+       <div class="form-field col-lg-6 ">
+         <input id="phone" class="input-text js-input" [(ngModel)]="dataActive.phoneNumber" [ngModelOptions]="{standalone: true}" type="text" required>
+         <label class="label" for="phone">Numero télephone</label>
+      </div>
+      <div class="form-field col-lg-12">
+         <input id="message" [(ngModel)]="message" [ngModelOptions]="{standalone: true}" class="input-text js-input" type="text" required>
+         <!-- <textarea name="message" id="message" [(ngModel)]="message" [ngModelOptions]="{standalone: true}" class="input-textarea js-input" cols="30" rows="10"></textarea> -->
+         <label class="label" for="message">Message</label>
+      </div>
+      <div class="form-field col-lg-12">
+         <input class="submit-btn" type="submit" (click)="send()" value="Envoyer">
+      </div>
+   </form>
+</section>

@@ -13,6 +13,7 @@ export const GET_ORDER_LIST = gql`
                     state
                     currencyCode
                     total
+                    totalWithTax
                 }
                 totalItems
             }
