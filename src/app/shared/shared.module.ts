@@ -1,3 +1,4 @@
+import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { CompLocationGoogleComponent } from './components/comp-location-google/comp-location-google.component';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -50,7 +51,8 @@ const SHARED_DECLARATIONS = [
     FormatPricePipe,
     ProductUrlPipe,
     AssetPreviewPipe,
-    ContactUsComponent
+    ContactUsComponent,
+    AboutUsComponent
 ];
 
 const IMPORTS = [

@@ -1,3 +1,4 @@
+import { AboutUsComponent } from './shared/components/about-us/about-us.component';
 import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
 import { Route } from '@angular/router';
 
@@ -21,6 +22,10 @@ export const routes: Route[] = [
     {
         path: 'contact-us',
         component: ContactUsComponent
+    },
+    {
+        path: 'about-us',
+        component: AboutUsComponent
     },
     {
         path: 'account',

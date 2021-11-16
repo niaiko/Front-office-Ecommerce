@@ -27,6 +27,7 @@ export class ContactUsComponent implements OnInit {
       } else {
         this.logged = false;
         this.router.navigate(['account/sign-in'])
+        this.notif.info('Veuillez vous connectez')
       }
     })
   }
