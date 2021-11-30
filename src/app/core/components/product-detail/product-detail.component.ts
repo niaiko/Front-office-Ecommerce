@@ -236,7 +236,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             }
             ).subscribe(res =>{
                 if (res) {
-                    window.location.reload()
+                    this.autre();
                 }
                 
             })

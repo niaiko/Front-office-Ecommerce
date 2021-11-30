@@ -25,7 +25,8 @@ export class RegisterComponent {
     registrationSent = false;
     constructor(private dataService: DataService,
                 private changeDetector: ChangeDetectorRef,
-                private router: Router) { }
+                private router: Router
+                ) { }
 
     register() {
         this.dataService.mutate<Register.Mutation, Register.Variables>(REGISTER, {
@@ -33,13 +34,17 @@ export class RegisterComponent {
                 emailAddress: this.emailAddress,
                 firstName: this.firstName,
                 lastName: this.lastName,
-                password: this.password,
-                phoneNumber: this.phone.internationalNumber
+                password: this.password
+                // phoneNumber: this.phone.internationalNumber
             },
         }).subscribe(() => {
             this.registrationSent = true;
             this.changeDetector.markForCheck();
             this.router.navigate(['account/sign-in'])
         });
+    }
+
+    inscrireVendeur(){
+        this.router.navigate(['account/register-seller']);
     }
 }

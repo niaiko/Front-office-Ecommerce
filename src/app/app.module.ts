@@ -4,6 +4,7 @@ import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationEnd, Router, RouterModule, UrlSerializer } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ToastrModule } from 'ngx-toastr';
 import { filter } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
@@ -28,6 +29,7 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
         RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled', initialNavigation: 'enabled', relativeLinkResolution: 'legacy' }),
         CoreModule,
         SharedModule,
+        ToastrModule.forRoot(),
         ServiceWorkerModule.register(`${environment.baseHref}ngsw-worker.js`, {
             enabled: environment.production,
             registrationStrategy: 'registerWithDelay:5000',

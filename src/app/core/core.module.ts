@@ -38,6 +38,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { ProductRecommandedComponent } from './components/product-recommanded/product-recommanded.component';
 import { NgxCarouselModule } from 'ngx-light-carousel';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -75,7 +76,8 @@ let providedCacheState: any | undefined;
         BrowserModule,
         MatButtonModule,
         MatIconModule,
-        NgxCarouselModule
+        NgxCarouselModule,
+        MatExpansionModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

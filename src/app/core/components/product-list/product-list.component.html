@@ -26,7 +26,7 @@
             </ng-container>
             <ng-container *ngIf="nbrTotal !== 0; else noResults">
                 <div class="product-list">
-                    <ng-container *ngIf="nbrTotal !== null; else placeholders">
+                    <ng-container *ngIf="nbrTotal !== null ; else placeholders">
                         <vsf-product-card *ngFor="let product of liste; trackBy: trackByProductId"
                                           [product]="product"></vsf-product-card>
                     </ng-container>
@@ -34,11 +34,15 @@
                         <vsf-product-card *ngFor="let product of placeholderProducts"
                                           [product]="product"></vsf-product-card>
                     </ng-template>
+                    <ng-container *ngIf="(totalResults$ | async) !== 0 || nbrTotal !== 0 && rech;">
+                        <vsf-product-card *ngFor="let product of products$ | async; trackBy: trackByProductId"
+                                          [product]="product"></vsf-product-card>
+                    </ng-container>
                     <div class="load-more flex-fill" *ngIf="displayLoadMore$ | async">
                         <button class="btn btn-light btn-lg d-inline-flex align-items-center"
                                 (click)="loadMore()"
                                 [disabled]="loading$ | async">
-                            Load more
+                                Charger plus
                             <span [class.show]="loading$ | async"
                                   class="loading-indicator spinner-grow spinner-grow-sm"
                                   role="status"

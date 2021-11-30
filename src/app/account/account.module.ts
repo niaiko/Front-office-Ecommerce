@@ -20,6 +20,10 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { VerifyComponent } from './components/verify/verify.component';
 import { AccountGuard } from './providers/account.guard';
 import { SignInGuard } from './providers/sign-in.guard';
+import { RegisterVendeurComponent } from './components/register-vendeur/register-vendeur.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const DECLARATIONS = [
     AccountDashboardComponent,
@@ -35,7 +39,8 @@ const DECLARATIONS = [
     ResetPasswordComponent,
     ForgottenPasswordComponent,
     ChangeEmailAddressComponent,
-    AccountFavoriComponent
+    AccountFavoriComponent,
+    RegisterVendeurComponent
 ];
 
 @NgModule({
@@ -43,6 +48,9 @@ const DECLARATIONS = [
     imports: [
         SharedModule,
         RouterModule.forChild(routes),
+        MatStepperModule,
+        MatFormFieldModule,
+        MatInputModule
     ],
     providers: [
         AccountGuard,

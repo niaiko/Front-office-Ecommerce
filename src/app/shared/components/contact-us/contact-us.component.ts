@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GET_ACTIVE_CUSTOMER } from './../../../common/graphql/documents.graphql';
 import { DataService } from 'src/app/core/providers/data/data.service';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'vsf-contact-us',
@@ -17,7 +18,8 @@ export class ContactUsComponent implements OnInit {
   message: any;
   constructor(private dataService: DataService,
               private router: Router,
-              private notif: NotificationService) { }
+              private notif: NotificationService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dataService.query<any>(GET_ACTIVE_CUSTOMER, {}, 'no-cache').subscribe(res =>{
@@ -33,7 +35,10 @@ export class ContactUsComponent implements OnInit {
   }
 
   send(){
-    if (this.message !== null) {
+    console.log("mess", this.message)
+    if (this.message === undefined) {
+      this.toastr.info('veuillez saisir votre message')
+    } else {
       this.dataService.mutate<any, any>(SEND_MESSAGE, {
         input: {
           message: this.message,
@@ -44,12 +49,10 @@ export class ContactUsComponent implements OnInit {
         }
       }).subscribe(res =>{
         if (res.sendMessage) {
-          this.notif.success('Merci de nous avoir contacté')
+          this.toastr.success('Merci de nous avoir contacté')
           this.router.navigate(['/'])
         }
       })
-    } else {
-      this.notif.info('veuillez saisir votre message')
     }
     
   }

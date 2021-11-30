@@ -18,6 +18,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { VerifyComponent } from './components/verify/verify.component';
 import { AccountGuard } from './providers/account.guard';
 import { SignInGuard } from './providers/sign-in.guard';
+import { RegisterVendeurComponent } from './components/register-vendeur/register-vendeur.component';
 
 export const routes: Routes = [
     {
@@ -74,6 +75,11 @@ export const routes: Routes = [
                 path: 'register',
                 canActivate: [SignInGuard],
                 component: RegisterComponent,
+            },
+            {
+                path: 'register-seller',
+                canActivate: [SignInGuard],
+                component: RegisterVendeurComponent,
             },
             {
                 path: 'verify',

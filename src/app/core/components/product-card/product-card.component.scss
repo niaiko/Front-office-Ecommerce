@@ -21,6 +21,11 @@
 .product-image {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0.85;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    width: 190px;
 }
 
 .product-name {
@@ -53,4 +58,29 @@
 
 .placeholder-body {
     height: $font-size-base;
+}
+
+.product-card {
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    width: 190px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.wishlist {
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.first {
+    position: absolute;
+    width: 100%;
+    padding: 9px
 }

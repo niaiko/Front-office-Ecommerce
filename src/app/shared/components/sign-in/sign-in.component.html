@@ -1,4 +1,4 @@
-<form #signInForm="ngForm"
+<!-- <form #signInForm="ngForm"
       (submit)="signIn()">
     <vsf-centered-card>
             <input class="form-control"
@@ -35,4 +35,58 @@
             <a [routerLink]="['/account/register']">Pas de compte? Inscrivez-vous ici</a>
         </div>
     </vsf-centered-card>
+</form> -->
+
+<form #signInForm="ngForm" (submit)="signIn()">
+  <div class="card card0 border-0">
+    <div class="row d-flex">
+      <div class="col-lg-6">
+        <div class="card1 pb-5">
+          <div class="row"> <img src="assets/cube-logo-line-icon-nostroke.png" class="logo"> </div>
+          <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="assets/e-commerce.png"
+              class="image"> </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card2 card border-0 px-4 py-5">
+          <div class="row px-3 mb-4">
+            <div class="line"></div> <small class="or text-center"></small>
+            <div class="line"></div>
+          </div>
+          <div class="row px-3"> <label class="mb-1">
+              <h6 class="mb-0 text-sm">Adresse E-mail</h6>
+            </label> <input class="mb-4" placeholder="Email address"
+            name="emailAddress"
+            type="email"
+            email
+            required
+            [(ngModel)]="emailAddress">
+           </div>
+          <div class="row px-3"> <label class="mb-1">
+              <h6 class="mb-0 text-sm">Password</h6>
+            </label> <input placeholder="Password"
+            type="password"
+            name="password"
+            required
+            [(ngModel)]="password"> </div>
+          <div class="row px-3 mb-4">
+            <div class="custom-control custom-checkbox custom-control-inline">
+               <input id="chk1" type="checkbox" [(ngModel)]="rememberMe" name="chk" class="custom-control-input"> 
+               <label for="chk1" class="custom-control-label text-sm">Se souvenir de moi</label> </div>
+          </div>
+          <div class="row mb-3 px-3">
+             <button [disabled]="signInForm.invalid || signInForm.pristine"
+             type="submit" class="btn btn-blue text-center">Se connecter</button>
+          </div>
+          <div class="alert alert-warning invalid-credentials" role="alert"  [class.visible]="invalidCredentials">
+            Les informations d'identification invalides. Veuillez réessayer.<br>
+              <a [routerLink]="['/account/forgotten-password', { email: this.emailAddress }]">J'ai oublié mon mot de passe</a>
+          </div>
+          <div *ngIf="displayRegisterLink" class="register-link">
+            <a [routerLink]="['/account/register']">Pas de compte? Inscrivez-vous ici</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>

@@ -1,4 +1,4 @@
-<form #registerForm="ngForm"
+<!-- <form #registerForm="ngForm"
       (submit)="register()">
     <vsf-centered-card>
             <input class="form-control"
@@ -20,7 +20,7 @@
                    type="email"
                    email
                    [disabled]="registrationSent"
-                   [(ngModel)]="emailAddress">
+                   [(ngModel)]="emailAddress"> -->
             <!-- <ngx-intl-tel-input
                     [cssClass]="'pays'"
                     [preferredCountries]="[CountryISO.France]"
@@ -35,7 +35,7 @@
                     name="phone"
                     [(ngModel)]="phone"
                 ></ngx-intl-tel-input> -->
-            <input class="form-control mt-1"
+            <!-- <input class="form-control mt-1"
                     placeholder="Mot de passe"
                     name="password"
                     required
@@ -49,4 +49,71 @@
             Inscrire
         </button>
     </vsf-centered-card>
-</form>
+</form> -->
+
+<form #registerForm="ngForm"
+(submit)="register()">
+    <div class="card card0 border-0">
+      <div class="row d-flex">
+        <div class="col-lg-6">
+          <div class="card1 pb-5">
+            <div class="row"> <img src="assets/cube-logo-line-icon-nostroke.png" class="logo"> </div>
+            <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="assets/e-commerce.png"
+                class="image"> </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card2 card border-0 px-4 py-5">
+            <small class="or text-center" (click)="inscrireVendeur()">Inscrire en tant que vendeur</small>
+            <div class="row px-3 mb-4">
+              
+              <br>
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+            <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Nom</h6>
+              </label> <input class="mb-4" placeholder="Nom"
+              name="name"
+              type="text"
+              required
+              [disabled]="registrationSent"
+                [(ngModel)]="firstName">
+             </div>
+             <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Prénom</h6>
+              </label> <input class="mb-4" placeholder="Prénom"
+              name="prenom"
+              type="text"
+              required
+              [disabled]="registrationSent"
+              [(ngModel)]="lastName">
+             </div>
+            <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Adresse E-mail</h6>
+              </label> <input class="mb-4" placeholder="Email address"
+              name="emailAddress"
+              type="email"
+              email
+              required
+              [disabled]="registrationSent"
+              [(ngModel)]="emailAddress">
+             </div>
+            <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Mot de passe</h6>
+              </label> <input placeholder="Mot de passe"
+              type="password"
+              name="password"
+              required
+              [disabled]="registrationSent"
+              [(ngModel)]="password"> </div>
+              <br>
+            <div class="row mb-3 px-3">
+               <button  [disabled]="registerForm.invalid || registrationSent"
+               type="submit" class="btn btn-blue text-center">S'inscrire</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

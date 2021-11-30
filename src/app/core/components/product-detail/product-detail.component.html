@@ -41,6 +41,19 @@
                 </div>
                 <div class="description" [innerHTML]="product.description">
                 </div>
+                <mat-accordion class="card" *ngIf="product?.customFields?.allergenes?.length > 0">
+                    <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title class="link">
+                          Allergène(s)
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let item of product?.customFields?.allergenes">{{item}}</li>
+                      </ul>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                  <br>
                 <mat-selection-list #dev  
                 (selectionChange)="selectionChange($event.option)"
                  class="card"

@@ -8,6 +8,7 @@ export const GET_ACTIVE_CHANNEL = gql`
             code
             currencyCode
             defaultLanguageCode
+            token
         }
     }
 `;

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -50,6 +50,7 @@ export class ProductListComponent implements OnInit {
     nbrTotal: any;
     produit: any;
     liste: any[] = [];
+    rech: boolean = false;
 
     constructor(private dataService: DataService,
                 private route: ActivatedRoute,
@@ -57,8 +58,6 @@ export class ProductListComponent implements OnInit {
                 private sanitizer: DomSanitizer) { }
 
     ngOnInit() {
-        this.idMenu = this.route.snapshot.paramMap.get('id')
-        console.log('ID MENU =>', this.idMenu)
         this.activeFacetValueIds$ = this.route.paramMap.pipe(
             map(pm => getRouteArrayParam(pm, 'facets')),
             distinctUntilChanged((x, y) => x.toString() === y.toString()),
@@ -67,34 +66,39 @@ export class ProductListComponent implements OnInit {
             }),
             shareReplay(1),
         );
-        this.dataService.query<any, any>(GET_PRODUCT_ENABLED_BY_MENU, {
-            id: this.idMenu
-        }).subscribe(resp =>{
-            console.log('DATA PAR ID MENU', resp)
-            const data: any[] = resp.productMenuEnable;
-            for (let i = 0; i < data.length; i++) {
-                this.liste.push({
-                    description: data[i].description,
-                    productId: data[i].variants[0].productId,
-                    productName: data[i].name,
-                    slug: data[i].slug,
-                    __typename: data[i].__typename,
-                    priceWithTax: {
-                        max: data[i].variants[0].priceWithTax,
-                        min: data[i].variants[0].priceWithTax,
-                        __typename: "PriceRange"
-                    },
-                    productAsset: {
-                        focalPoint: data[i].featuredAsset.focalPoint,
-                        id: data[i].featuredAsset.id,
-                        preview: data[i].featuredAsset.preview
-                    }
-                })
-            }
-            console.log("donnee namboarina =>", this.liste)
-            this.produit = resp.productMenu
-            this.nbrTotal = this.liste.length
-        })
+        if (window.location.pathname === '/search') {
+            this.rech = true;
+        } else {
+            this.rech = false;
+            this.idMenu = this.route.snapshot.paramMap.get('id')
+            this.dataService.query<any, any>(GET_PRODUCT_ENABLED_BY_MENU, {
+                id: this.idMenu
+            }).subscribe(resp =>{
+                const data: any[] = resp.productMenuEnable;
+                for (let i = 0; i < data.length; i++) {
+                    this.liste.push({
+                        description: data[i].description,
+                        productId: data[i].variants[0].productId,
+                        productName: data[i].name,
+                        slug: data[i].slug,
+                        __typename: data[i].__typename,
+                        priceWithTax: {
+                            max: data[i].variants[0].priceWithTax,
+                            min: data[i].variants[0].priceWithTax,
+                            __typename: "PriceRange"
+                        },
+                        productAsset: {
+                            focalPoint: data[i].featuredAsset.focalPoint,
+                            id: data[i].featuredAsset.id,
+                            preview: data[i].featuredAsset.preview
+                        }
+                    })
+                }
+                this.produit = resp.productMenu
+                this.nbrTotal = this.liste.length
+            })
+        }
+        
         this.searchTerm$ = this.route.queryParamMap.pipe(
             map(pm => pm.get('search') || ''),
             distinctUntilChanged(),

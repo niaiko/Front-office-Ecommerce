@@ -1,0 +1,99 @@
+<!-- <form #registerForm="ngForm">
+    <div class="card card0 border-0">
+      <div class="row d-flex">
+        <div class="col-lg-6">
+          <div class="card1 pb-5">
+            <div class="row"> <img src="assets/cube-logo-line-icon-nostroke.png" class="logo"> </div>
+            <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="assets/e-commerce.png"
+                class="image"> </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card2 card border-0 px-4 py-5">
+            <small class="or text-center" (click)="inscrireVendeur()">Inscrire en tant que client</small>
+            <div class="row px-3 mb-4">
+              
+              <br>
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+            <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Nom</h6>
+              </label> <input class="mb-4" placeholder="Nom"
+              name="name"
+              type="text"
+              required
+             >
+             </div>
+             <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Prénom</h6>
+              </label> <input class="mb-4" placeholder="Prénom"
+              name="prenom"
+              type="text"
+              required>
+             </div>
+            <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Adresse E-mail</h6>
+              </label> <input class="mb-4" placeholder="Email address"
+              name="emailAddress"
+              type="email"
+              email
+              required>
+             </div>
+            <div class="row px-3"> <label class="mb-1">
+                <h6 class="mb-0 text-sm">Mot de passe</h6>
+              </label> <input placeholder="Mot de passe"
+              type="password"
+              name="password"
+              required> </div>
+              <br>
+            <div class="row mb-3 px-3">
+               <button 
+               type="submit" class="btn btn-blue text-center">S'inscrire</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form> -->
+
+  <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button>
+  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+  
