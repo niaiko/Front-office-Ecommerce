@@ -1,15 +1,31 @@
+<div class="row channel">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <ngx-select 
+                    [allowClear]="true"
+                    [items]="channels"
+                    placeholder="Channels"
+                    [noAutoComplete] = "false"
+                    [keepSelectedItems] = "true"
+                    noResultsFound = "Cahnnel introuvable"
+                    (select)="doSelect($event)">
+        </ngx-select>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
 <div class="titre">
-    <h3 class="display-1 text-center">Grill Anatolia</h3>
+    <h3 class="display-1 text-center">{{name | uppercase}}</h3>
 </div>
 
 <div class="container">
-    <div class="top-categories mt-5">
-        <!-- <vsf-collection-card *ngFor="let collection of collections$ | async"
+    <!-- <div class="top-categories mt-5">
+        <vsf-collection-card *ngFor="let collection of collections$ | async"
                              [collection]="collection">
-        </vsf-collection-card> -->
-    </div>
+        </vsf-collection-card>
+    </div> -->
     <vsf-product-recommanded></vsf-product-recommanded>
-    <h3 class="display-4 mt-5">Meilleur produit vendu</h3>
+    <h3 class="display-4 mt-5">Meilleur produit</h3>
     <div class="product-list">
         <ng-container *ngIf="topSellersLoaded$ | async; else placeholders">
             <vsf-product-card *ngFor="let product of topSellers$ | async" [product]="product"></vsf-product-card>

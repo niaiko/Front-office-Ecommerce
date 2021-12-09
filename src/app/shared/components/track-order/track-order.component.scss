@@ -1,0 +1,58 @@
+
+.modal-body {
+    background-color: #fff;
+    border-color: #fff
+}
+
+.close {
+    color: #000;
+    cursor: pointer
+}
+
+.close:hover {
+    color: #000
+}
+
+.theme-color {
+    color: #e64a4a
+}
+
+hr.new1 {
+    border-top: 2px dashed #fff;
+    margin: 0.4rem 0
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #eb5b5b;
+    border-color: #d17d7d;
+    padding: 12px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 1px;
+    font-size: 17px
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #dc3737;
+    border-color: #dd3e46;
+    padding: 12px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 1px;
+    font-size: 17px
+}
+
+::placeholder {
+    color: rgb(163, 79, 79);
+    opacity: 1; 
+  }
+  
+.blockquote {
+    padding: 20px;
+    box-shadow:
+         inset 0 -3em 3em rgba(0,0,0,0.1),
+               0 0  0 2px rgb(255,255,255),
+               0.3em 0.3em 1em rgba(0,0,0,0.3);
+  }

@@ -48,6 +48,7 @@
     "ngx-date-time-picker": "^1.1.6",
     "ngx-google-places-autocomplete": "^2.0.5",
     "ngx-light-carousel": "^1.1.10",
+    "ngx-select-ex": "^7.0.1",
     "ngx-stripe": "^12.7.0",
     "ngx-toastr": "^14.2.0",
     "photoswipe": "^4.1.3",

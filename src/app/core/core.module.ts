@@ -151,10 +151,20 @@ export function apolloOptionsFactory(httpLink: HttpLink, platformId: any) {
                 if (!isServer) {
                     if (environment.tokenMethod === 'bearer') {
                         const authToken = localStorage.getItem('authToken');
-                        if (authToken) {
+                        const vendureToken = localStorage.getItem('vendure-token');
+                        // if (vendureToken) {
+                        //     const headers: Record<string, string> = {};
+                        //     return {
+                        //         headers: {
+                        //             'vendure-token': vendureToken
+                        //         }
+                        //     }
+                        // }
+                        if (authToken && vendureToken) {
                             return {
                                 headers: {
                                     authorization: `Bearer ${authToken}`,
+                                    'vendure-token': vendureToken
                                 },
                             };
                         }

@@ -1,3 +1,4 @@
+import { TrackOrderComponent } from './components/track-order/track-order.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { CompLocationGoogleComponent } from './components/comp-location-google/comp-location-google.component';
@@ -30,6 +31,7 @@ import { AssetPreviewPipe } from './pipes/asset-preview.pipe';
 import { FormatPricePipe } from './pipes/format-price.pipe';
 import { ProductUrlPipe } from './pipes/product-url.pipe';
 import {MatRadioModule} from '@angular/material/radio';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
@@ -52,7 +54,8 @@ const SHARED_DECLARATIONS = [
     ProductUrlPipe,
     AssetPreviewPipe,
     ContactUsComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    TrackOrderComponent
 ];
 
 const IMPORTS = [
@@ -65,6 +68,7 @@ const IMPORTS = [
     // NgxIntlTelInputModule,
     GooglePlaceModule,
     MatRadioModule,
+    NgxSelectModule
 ];
 
 @NgModule({

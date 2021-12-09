@@ -1,99 +1,172 @@
-<!-- <form #registerForm="ngForm">
+<form #registerForm="ngForm">
     <div class="card card0 border-0">
       <div class="row d-flex">
         <div class="col-lg-6">
           <div class="card1 pb-5">
             <div class="row"> <img src="assets/cube-logo-line-icon-nostroke.png" class="logo"> </div>
-            <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="assets/e-commerce.png"
+            <div *ngIf="!redirect" class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="assets/e-commerce.png"
                 class="image"> </div>
+                <div *ngIf="redirect">
+                  <div class="container d-flex justify-content-center mt-5">
+                    <div class="card3 p-2 text-center">
+                        <div class="mt-5"> <img src="assets/cube-logo-line-icon-nostroke.png" width="70" /> </div> 
+                        <span class="total">Success</span>
+                        <h4 class="mt-4"> Veuiller accedez à votre tableau de bord </h4>
+                        <div class="text-center">
+                           <button (click)="redirectBo()" class="btn butn"> Rediriger</button> 
+                        </div>
+                    </div>
+                </div>
+                </div>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="card2 card border-0 px-4 py-5">
             <small class="or text-center" (click)="inscrireVendeur()">Inscrire en tant que client</small>
             <div class="row px-3 mb-4">
-              
               <br>
               <div class="line"></div>
               <div class="line"></div>
             </div>
-            <div class="row px-3"> <label class="mb-1">
-                <h6 class="mb-0 text-sm">Nom</h6>
-              </label> <input class="mb-4" placeholder="Nom"
-              name="name"
-              type="text"
-              required
-             >
-             </div>
-             <div class="row px-3"> <label class="mb-1">
-                <h6 class="mb-0 text-sm">Prénom</h6>
-              </label> <input class="mb-4" placeholder="Prénom"
-              name="prenom"
-              type="text"
-              required>
-             </div>
-            <div class="row px-3"> <label class="mb-1">
-                <h6 class="mb-0 text-sm">Adresse E-mail</h6>
-              </label> <input class="mb-4" placeholder="Email address"
-              name="emailAddress"
-              type="email"
-              email
-              required>
-             </div>
-            <div class="row px-3"> <label class="mb-1">
-                <h6 class="mb-0 text-sm">Mot de passe</h6>
-              </label> <input placeholder="Mot de passe"
-              type="password"
-              name="password"
-              required> </div>
-              <br>
-            <div class="row mb-3 px-3">
-               <button 
-               type="submit" class="btn btn-blue text-center">S'inscrire</button>
+            <div *ngIf="!show && !redirect">
+              <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                  <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Information vendeur</ng-template>
+                    <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Nom</h6>
+                      </label> <input class="mb-4" placeholder="Nom"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="infoVendeur.firstName"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Prenom</h6>
+                      </label> <input class="mb-4" placeholder="Prenom"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="infoVendeur.lastName"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Adresse E-mail</h6>
+                      </label> <input class="mb-4" placeholder="E-mail"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="infoVendeur.emailAddress"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Mot de passe</h6>
+                      </label> <input class="mb-4" placeholder="Mot de passe"
+                      name="name"
+                      type="password"
+                      [(ngModel)]="infoVendeur.password"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Confirmer mot de passe</h6>
+                      </label> <input class="mb-4" placeholder="Mot de passe"
+                      name="name"
+                      type="password"
+                      (keyup)="checkPassword($event)"
+                      [(ngModel)]="confirmPass"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                    <div>
+                      <button class="btn btn-blue text-center" [disabled]="!valid" matStepperNext>Suivant</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup">
+                  <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Information du magasin</ng-template>
+                    <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Nom du magasin</h6>
+                      </label> <input class="mb-4" placeholder="Nom du magasin"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="infoMagasin.code"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Adresse du magasin</h6>
+                      </label> <input class="mb-4" placeholder="Adresse"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="infoMagasin.adressChannel"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Contact magasin</h6>
+                      </label> <input class="mb-4" placeholder="contact"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="infoMagasin.telephone"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">E-mail magasin</h6>
+                      </label> <input class="mb-4" placeholder="Nom"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="infoMagasin.emailAdress"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+                     </div>
+                     <!-- <div class="row px-3"> <label class="mb-1">
+                        <h6 class="mb-0 text-sm">Zone de livraison</h6>
+                      </label> <input class="mb-4" placeholder="Zone de livraison"
+                      name="name"
+                      type="text"
+                      required>
+                     </div> -->
+                    <div>
+                      <button class="btn retour text-center" matStepperPrevious>Retour</button>&nbsp;
+                      <button class="btn btn-blue text-center" matStepperNext>Suivant</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step>
+                  <ng-template matStepLabel>Confirmation</ng-template>
+                  <p>Vous avez maintenant terminé.</p>
+                  Nom du magasin: {{infoMagasin.code}} <br>
+                  Adresse: {{infoMagasin.adressChannel}} <br>
+                  Contact: {{infoMagasin.telephone}} <br>
+                  E-mail: {{infoMagasin.emailAdress}}
+                  <div>
+                    <button class="btn retour text-center" matStepperPrevious>Retour</button>&nbsp;
+                    <button class="btn btn-blue text-center" (click)="save()">S'inscrire</button>
+                  </div>
+                </mat-step>
+              </mat-stepper>
             </div>
+            <div *ngIf="show && !redirect">
+              <div class="loading">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="text-center">
+                Veuillez patientez ...
+              </span>
+            </div>
+              <br>
           </div>
         </div>
       </div>
     </div>
-  </form> -->
-
-  <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
-  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-stepper>
-  
+  </form>

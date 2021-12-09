@@ -57,7 +57,7 @@ export class ProductRecommandedComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.query<any>(PRODUIT_RECOMMANDE).subscribe(res =>{
       console.log('rexomm', res)
-      if (res.productRecommandeList) {
+      if (res.productRecommandeList != null) {
         this.products = res
         // for (let i = 0; i < data.length; i++) {
         //   this.products.push({

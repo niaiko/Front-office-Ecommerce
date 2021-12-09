@@ -1,3 +1,4 @@
+import { TrackOrderComponent } from './shared/components/track-order/track-order.component';
 import { AboutUsComponent } from './shared/components/about-us/about-us.component';
 import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
 import { Route } from '@angular/router';
@@ -26,6 +27,10 @@ export const routes: Route[] = [
     {
         path: 'about-us',
         component: AboutUsComponent
+    },
+    {
+        path: 'track-order',
+        component: TrackOrderComponent
     },
     {
         path: 'account',

@@ -1,0 +1,23 @@
+    <div>
+    <div class="modal-dialog blockquote">
+        <div class="modal-content">
+            <div class="modal-body ">
+                <div class="text-right"> <i class="fa fa-close close" data-dismiss="modal"></i> </div>
+                <div class="px-4 py-5">
+                    <h5 class="text-uppercase text-center">Suivre votre commande</h5>
+                    <h4 class="mt-5 theme-color mb-5 text-center">Veuillez saisir votre numero de commande</h4>
+                    <div class="mb-3">
+                        <hr class="new1">
+                    </div>
+                    <input type="text" [(ngModel)]="code" placeholder="Numero de commande" class="form-control">
+                    <div class="text-center mt-5">
+                         <button (click)="search()" class="btn btn-primary">Suivre</button>
+                     </div>
+                </div>
+                <div class="text-center theme-color" *ngIf="showError">
+                    Veuillez verifier votre numero de commande
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

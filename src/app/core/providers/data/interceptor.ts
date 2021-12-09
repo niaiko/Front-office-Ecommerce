@@ -29,6 +29,9 @@ export class DefaultInterceptor implements HttpInterceptor {
                     if (event instanceof HttpResponse) {
                         this.checkForAuthToken(event);
                         this.notifyOnError(event);
+                        if (event.body.data.activeChannel) {
+                            this.setTokenActiveChannel(event.body.data.activeChannel.token)
+                        }
                     }
                 },
                 err => {
@@ -88,6 +91,13 @@ export class DefaultInterceptor implements HttpInterceptor {
             if (authToken) {
                 localStorage.setItem('authToken', authToken);
             }
+        }
+    }
+
+    private setTokenActiveChannel(response: any){
+        console.log("evenement =>", response);
+        if (response) {
+            localStorage.setItem('vendure-token', response)
         }
     }
 }

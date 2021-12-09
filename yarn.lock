@@ -7493,6 +7493,11 @@
   "resolved" "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz"
   "version" "3.0.3"
 
+"lodash.isequal@^4.5.0":
+  "integrity" "sha1-QVxEePK8wwEgwizhDtMib30+GOA="
+  "resolved" "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz"
+  "version" "4.5.0"
+
 "lodash.isfinite@^3.3.2":
   "integrity" "sha1-+4m2WpqAKBgz8LdHizpRBPiY67M="
   "resolved" "https://registry.npmjs.org/lodash.isfinite/-/lodash.isfinite-3.3.2.tgz"
@@ -8132,6 +8137,14 @@
   "version" "1.1.10"
   dependencies:
     "hammerjs" "^2.0.8"
+
+"ngx-select-ex@^7.0.1":
+  "integrity" "sha512-Iwf4JGaDdKCt98iUrBqFhDaqZuTCnXmasr4q9EnrLCWoHeSuocAv1DB5upP9cFFAdUnfDJkje6O2Y+UmTARsJQ=="
+  "resolved" "https://registry.npmjs.org/ngx-select-ex/-/ngx-select-ex-7.0.1.tgz"
+  "version" "7.0.1"
+  dependencies:
+    "lodash.isequal" "^4.5.0"
+    "tslib" "^2.2.0"
 
 "ngx-stripe@^12.7.0":
   "integrity" "sha512-IR8fAON85+WkGbd3Ht2xoorcl3nwVrOQVLK50XC84zXjO97aUBzdty33xDUQQueLR+qrvLBjZyZ3OiwwGj7Mxg=="

@@ -81,13 +81,13 @@
         </div>
     </ng-template>
     <br>
-    <div class="card">
+    <div class="card" *ngIf="liste != null">
         <div class="card-title">
             Produit similaire
         </div>
         <div class="card-body">
             <div class="product-list">
-                <ng-container *ngIf="liste !== null">
+                <ng-container>
                     <vsf-product-card *ngFor="let product of liste" (click)="autre()"
                                       [product]="product"></vsf-product-card>
                 </ng-container>
